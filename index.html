@@ -6,7 +6,7 @@
     <title>Nyuki Asali - Pure Kenyan Honey, Pure Impact</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #121212;
@@ -24,38 +24,78 @@
             cursor: none;
         }
         
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-        
-        /* Custom Cursor */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Bee Cursor */
         .custom-cursor {
-            width: 25px;
-            height: 25px;
-            border: 2px solid var(--gold);
-            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background-image: url("https://cdn.dribbble.com/userupload/23698632/file/original-1b695b8490779da161aed4bb4c7eb7dc.gif");
+            background-size: contain;
+            background-repeat: no-repeat;
             position: fixed;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            transition: all 0.1s ease-out;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 9999;
-            mix-blend-mode: difference;
         }
         a:hover ~ .custom-cursor, button:hover ~ .custom-cursor {
-            transform: translate(-50%, -50%) scale(1.5);
-            background-color: var(--gold);
+            transform: translate(-50%, -50%) scale(1.2);
         }
+
+        /* Honeycomb Background */
+        .honeycomb-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .honeycomb-bg::before {
+            content: '';
+            position: absolute;
+            top: -25%; left: -25%;
+            width: 150%; height: 150%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath fill='%23e1c16e' fill-opacity='0.03' d='M28 12.125L14 4.04 0 12.125v16.25L14 36.46l14-8.085v-16.25zM14 0L0 8.085v24.375L14 40.54l14-8.085V8.085L14 0z'%3E%3C/path%3E%3C/svg%3E");
+            animation: pan-glow 30s linear infinite;
+        }
+
+        @keyframes pan-glow {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { transform: translate(28px, 48.5px) rotate(5deg); opacity: 0.7; }
+        }
+        
 
         /* Hero Section */
         .hero-section {
             position: relative;
             height: 100vh;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            background-image: linear-gradient(135deg, #181818 0%, #222222 100%);
             overflow: hidden;
         }
         
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(225, 193, 110, 0.08), transparent 70%);
+            animation: pulse-glow 10s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        @keyframes pulse-glow {
+            from { transform: scale(1); opacity: 0.7; }
+            to { transform: scale(1.2); opacity: 1; }
+        }
+
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.7) 100%);
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%);
             z-index: 1;
         }
         
@@ -137,7 +177,14 @@
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .gallery-item { @apply rounded-lg overflow-hidden transition-transform duration-300 transform hover:scale-105; }
-        .gallery-img { @apply w-full h-full object-cover; }
+        
+        /* Uniform Gallery Item */
+        .gallery-item {
+            aspect-ratio: 1 / 1;
+        }
+        .gallery-img { 
+            @apply w-full h-full object-cover; 
+        }
         
         /* FAQ Accordion */
         .faq-question { cursor: pointer; }
@@ -148,6 +195,49 @@
             color: var(--text-muted);
         }
         .faq-question .icon { transition: transform 0.3s ease; }
+
+        .animate-title span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition-property: opacity, transform;
+            transition-timing-function: ease;
+            transition-duration: 0.6s;
+        }
+
+        /* Flying Bees Animation */
+        .flying-bees-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+        .flying-bee {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            opacity: 0;
+            background-image: url('https://cdn.pixabay.com/animation/2022/11/15/19/43/19-43-25-281_512.gif');
+            background-size: contain;
+            animation: fly 20s linear infinite;
+        }
+        .flying-bee:nth-child(1) { top: 20%; animation-duration: 15s; animation-delay: 0s; }
+        .flying-bee:nth-child(2) { top: 50%; animation-duration: 25s; animation-delay: 5s; }
+        .flying-bee:nth-child(3) { top: 70%; animation-duration: 18s; animation-delay: 12s; }
+        .flying-bee:nth-child(4) { top: 85%; animation-duration: 22s; animation-delay: 15s; }
+
+
+        @keyframes fly {
+            0% { left: -10%; opacity: 0; transform: rotate(10deg) scale(0.8); }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { left: 110%; opacity: 0; transform: rotate(-10deg) scale(1.2); }
+        }
+
     </style>
 </head>
 <body class="bg-zinc-900 text-white">
@@ -162,10 +252,17 @@
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="custom-cursor" id="cursor"></div>
 
+    <div class="flying-bees-container">
+        <div class="flying-bee"></div>
+        <div class="flying-bee"></div>
+        <div class="flying-bee"></div>
+        <div class="flying-bee"></div>
+    </div>
+
     <nav class="navbar fixed top-0 w-full z-50 py-4" id="navbar">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <a href="#home" class="flex items-center gap-3">
-                 <img src="https://i.ibb.co/Zp8m5tBC/icon-on-dark.png" alt="Nyuki Asali Logo" class="h-12 w-auto">
+                 <img src="https://i.ibb.co/Zp8m5tBC/icon-on-dark.png" alt="Nyuki Asali Logo" class="h-16 w-auto transition-transform duration-300 hover:scale-110">
             </a>
             
             <div class="hidden md:flex items-center gap-8 text-lg">
@@ -177,11 +274,11 @@
                 <a href="#contact" class="bg-amber-500 text-zinc-900 px-6 py-2 rounded-full hover:bg-amber-400 transition font-semibold">Support</a>
             </div>
             
-            <button id="mobile-menu-button" class="md:hidden text-amber-500">
+            <button id="mobile-menu-button" class="md:hidden text-amber-500 z-10">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
-         <div id="mobile-menu" class="hidden md:hidden bg-black/50 text-center mt-2">
+         <div id="mobile-menu" class="hidden md:hidden bg-black/80 text-center mt-2 backdrop-blur-sm absolute w-full left-0">
             <a href="#home" class="block py-3 px-4 text-sm text-gray-300 hover:bg-amber-500 hover:text-black">Home</a>
             <a href="#story" class="block py-3 px-4 text-sm text-gray-300 hover:bg-amber-500 hover:text-black">Our Story</a>
             <a href="#impact" class="block py-3 px-4 text-sm text-gray-300 hover:bg-amber-500 hover:text-black">Impact</a>
@@ -198,7 +295,7 @@
         
         <div class="hero-content h-full flex items-center justify-center text-center px-6">
             <div class="max-w-5xl reveal active">
-                <h1 class="text-5xl sm:text-6xl md:text-8xl font-serif font-bold mb-6 leading-tight">
+                <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold mb-6 leading-tight animate-title">
                     Pure <span class="text-amber-500">Kenyan</span> Honey
                 </h1>
                 <p class="text-lg md:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">
@@ -218,7 +315,7 @@
 
     <section id="mission" class="py-24 bg-zinc-900 text-center reveal">
         <div class="container mx-auto px-6 max-w-4xl">
-            <h2 class="text-2xl font-serif text-amber-500 mb-4">Our Mission</h2>
+            <h2 class="text-2xl font-bold text-amber-500 mb-4">Our Mission</h2>
             <p class="text-3xl md:text-4xl text-gray-200 leading-relaxed">
                 All proceeds from Nyuki Asali go towards helping Kenyan orphans aging out of orphanages with transitional housing, case management, mental health assistance, and skills training.
             </p>
@@ -229,14 +326,14 @@
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div class="space-y-6">
-                    <h2 class="text-5xl md:text-6xl font-serif font-bold">
+                    <h2 class="text-5xl md:text-6xl font-bold">
                         Where <span class="text-amber-500">Nature</span> Meets Nurture
                     </h2>
                     <p class="text-lg text-gray-300 leading-relaxed">
-                       Nyuki Asali, "Bee Honey" in Swahili, was born from a deep love for Kenya's natural beauty and a commitment to its future generation. We believe in the power of community and the sweetness of pure, wild honey.
+                       Nyuki Asali, "Bee Honey" in Swahili, was born from a deep love for our Kenyan heritage, right here in Oklahoma, USA. As Kenyans living abroad, we wanted to build a bridge back home, connecting the sweetness of pure, wild honey with a powerful mission.
                     </p>
                     <p class="text-lg text-gray-300 leading-relaxed">
-                       Our partnership with local beekeepers honors ancient traditions, delivering honey as vibrant as the land itself. Each purchase directly supports youth transitioning from orphanages to independence.
+                       Our apiary in Oklahoma is where our journey begins. Soon, we will expand our hives to the beautiful landscapes of Kenya, working hand-in-hand with local beekeepers and honoring the ancient traditions that make our honey as vibrant as the land itself.
                     </p>
                 </div>
                 
@@ -248,10 +345,11 @@
         </div>
     </section>
     
-    <section id="values" class="py-32 bg-zinc-800 reveal">
-        <div class="container mx-auto px-6">
+    <section id="values" class="py-32 bg-zinc-800 reveal relative">
+        <div class="honeycomb-bg"></div>
+        <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
-                 <h2 class="text-5xl md:text-6xl font-serif font-bold mb-4">
+                 <h2 class="text-5xl md:text-6xl font-bold mb-4">
                     Our Core <span class="text-amber-500">Values</span>
                 </h2>
             </div>
@@ -279,7 +377,7 @@
     <section id="impact" class="py-32 bg-gradient-to-b from-zinc-800 to-zinc-900 reveal">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-5xl md:text-6xl font-serif font-bold mb-4">
+                <h2 class="text-5xl md:text-6xl font-bold mb-4">
                     Creating <span class="text-amber-500">Futures</span>
                 </h2>
                 <p class="text-xl text-gray-400">100% of profits empower Kenyan youth through</p>
@@ -310,25 +408,26 @@
         </div>
     </section>
 
-    <section id="gallery" class="py-32 bg-zinc-900 reveal">
-         <div class="container mx-auto px-6">
-            <h2 class="text-5xl md:text-6xl font-serif font-bold text-center mb-16">
+    <section id="gallery" class="py-32 bg-zinc-900 reveal relative">
+        <div class="honeycomb-bg"></div>
+         <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16">
                 From Our <span class="text-amber-500">Community</span>
             </h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div class="gallery-item md:col-span-2 md:row-span-2"><img class="gallery-img" src="https://i.ibb.co/5WP2QQV4/MOCKUPS.png" alt="Nyuki Asali Mockups" loading="lazy"></div>
+                <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/5WP2QQV4/MOCKUPS.png" alt="Nyuki Asali Mockups" loading="lazy"></div>
                 <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/TDtnrjwB/Whats-App-Image-2025-09-07-at-21-49-35.jpg" alt="Community member" loading="lazy"></div>
                 <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/v4wghYKF/SDFGGDFG.png" alt="Honey Jar Detail" loading="lazy"></div>
                 <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/5WP5N76b/SDGDFSGDF.png" alt="Nyuki Asali Branding" loading="lazy"></div>
                 <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/Fk6hZ5vR/Whats-App-Image-2025-09-07-at-21-48-36.jpg" alt="Community member" loading="lazy"></div>
-                <div class="gallery-item col-span-2 md:col-span-3"><img class="gallery-img" src="https://i.ibb.co/GfGynd1N/Whats-App-Image-2025-09-07-at-21-49-35-1.jpg" alt="Community member" loading="lazy"></div>
+                <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/GfGynd1N/Whats-App-Image-2025-09-07-at-21-49-35-1.jpg" alt="Community member" loading="lazy"></div>
             </div>
         </div>
     </section>
 
     <section id="faq" class="py-32 bg-gradient-to-b from-zinc-900 to-zinc-950 reveal">
         <div class="container mx-auto px-6 max-w-3xl">
-            <h2 class="text-5xl md:text-6xl font-serif font-bold text-center mb-16">
+            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16">
                 Common <span class="text-amber-500">Questions</span>
             </h2>
             <div id="faq-accordion" class="space-y-4">
@@ -336,7 +435,7 @@
                     <div class="faq-question flex justify-between items-center w-full">
                         <h3 class="text-xl font-semibold text-text-light">Is your honey truly raw and organic?</h3><i class="fas fa-chevron-down icon text-amber-500"></i>
                     </div>
-                    <div class="faq-answer mt-2"><p>Absolutely. Our honey is harvested directly from wild hives in Kenya and is never heated, pasteurized, or processed. We add no sugars or additives, ensuring you get 100% pure, natural honey.</p></div>
+                    <div class="faq-answer mt-2"><p>Absolutely. Our honey is harvested directly from wild hives and is never heated, pasteurized, or processed. We add no sugars or additives, ensuring you get 100% pure, natural honey.</p></div>
                 </div>
                 <div class="glass rounded-2xl p-6">
                     <div class="faq-question flex justify-between items-center w-full">
@@ -348,7 +447,7 @@
                     <div class="faq-question flex justify-between items-center w-full">
                         <h3 class="text-xl font-semibold text-text-light">Where do you ship to?</h3><i class="fas fa-chevron-down icon text-amber-500"></i>
                     </div>
-                    <div class="faq-answer mt-2"><p>Currently, we ship to all locations within Kenya and are working on expanding to international shipping soon. Sign up for our newsletter to be the first to know when we expand our shipping zones!</p></div>
+                    <div class="faq-answer mt-2"><p>Currently, we ship to all locations within the USA. We plan to expand to international shipping, including Kenya, very soon. Sign up for our newsletter to be the first to know!</p></div>
                 </div>
             </div>
         </div>
@@ -356,7 +455,7 @@
 
     <footer id="contact" class="py-20 bg-zinc-950">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-serif font-bold mb-8">Join Our <span class="text-amber-500">Hive</span></h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Join Our <span class="text-amber-500">Hive</span></h2>
             <p class="text-xl text-gray-400 mb-8 max-w-md mx-auto">Subscribe for updates on our impact and be the first to know about new honey batches.</p>
             
             <div class="max-w-md mx-auto mb-12">
@@ -484,12 +583,6 @@
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
-
-        document.querySelectorAll('button').forEach(button => {
-             if(button.textContent.includes('Cart')) {
-                button.addEventListener('click', () => showToast('Added to cart! 🍯'));
-             }
-        });
         
         document.querySelector('footer form').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -501,6 +594,29 @@
                 showToast('Please enter a valid email.');
             }
         });
+
+        // Animate title words
+        const title = document.querySelector('.animate-title');
+        if (title) {
+            const textContent = title.innerHTML;
+            const words = textContent.split(/(<span.*?>.*?<\/span>|\s+)/).filter(w => w.trim().length > 0);
+            title.innerHTML = '';
+            let delay = 0;
+            words.forEach((word) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.innerHTML = word + '&nbsp;';
+                wordSpan.style.transitionDelay = `${delay}s`;
+                title.appendChild(wordSpan);
+                delay += 0.1;
+            });
+
+            setTimeout(() => {
+                title.querySelectorAll('span').forEach(span => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                });
+            }, 2000); // Delay matches loader
+        }
 
     </script>
 </body>
