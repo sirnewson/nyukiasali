@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nyuki Asali - Pure Kenyan Honey, Pure Impact</title>
+    <title>Nyuki Asali - Pure Honey, Kenyan Purpose</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,12 +16,19 @@
             --text-muted: #a3a3a3;
         }
         
+        html {
+             /* Smooth scroll for anchor links */
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
             overflow-x: hidden;
             cursor: none;
+            /* Base font size */
+            font-size: 16px; 
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -59,7 +66,8 @@
             position: absolute;
             top: -25%; left: -25%;
             width: 150%; height: 150%;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath fill='%23e1c16e' fill-opacity='0.03' d='M28 12.125L14 4.04 0 12.125v16.25L14 36.46l14-8.085v-16.25zM14 0L0 8.085v24.375L14 40.54l14-8.085V8.085L14 0z'%3E%3C/path%3E%3C/svg%3E");
+            /* Increased opacity for more presence */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath fill='%23e1c16e' fill-opacity='0.05' d='M28 12.125L14 4.04 0 12.125v16.25L14 36.46l14-8.085v-16.25zM14 0L0 8.085v24.375L14 40.54l14-8.085V8.085L14 0z'%3E%3C/path%3E%3C/svg%3E");
             animation: pan-glow 30s linear infinite;
         }
 
@@ -237,6 +245,33 @@
             90% { opacity: 0.7; }
             100% { left: 110%; opacity: 0; transform: rotate(-10deg) scale(1.2); }
         }
+        
+        /* === NEW: Hexagon Clipping Path === */
+        .hexagon-clip {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            /* Ensure the content isn't cut off strangely */
+            /* We can make it a bit taller to fit the hexagon shape */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* Removed aspect-ratio, added padding for content */
+            padding: 3rem 1.5rem; /* 48px top/bottom, 24px left/right */
+            min-height: 220px; /* Give it a good minimum size */
+        }
+        
+        /* === NEW: Icon Buzz Animation === */
+        .icon-buzz {
+             transition: transform 0.2s ease-in-out;
+        }
+        .hexagon-clip:hover .icon-buzz {
+            animation: buzz 0.3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes buzz {
+            from { transform: rotate(-5deg) scale(1.1); }
+            to { transform: rotate(5deg) scale(1.1); }
+        }
 
     </style>
 </head>
@@ -274,17 +309,19 @@
                 <a href="#contact" class="bg-amber-500 text-zinc-900 px-6 py-2 rounded-full hover:bg-amber-400 transition font-semibold">Support</a>
             </div>
             
-            <button id="mobile-menu-button" class="md:hidden text-amber-500 z-10">
+            <!-- Increased padding for better tap target -->
+            <button id="mobile-menu-button" class="md:hidden text-amber-500 z-10 p-2">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
-         <div id="mobile-menu" class="hidden md:hidden bg-black/80 text-center mt-2 backdrop-blur-sm absolute w-full left-0">
-            <a href="#home" class="block py-3 px-4 text-sm text-gray-300 hover:bg-amber-500 hover:text-black">Home</a>
-            <a href="#story" class="block py-3 px-4 text-sm text-gray-300 hover:bg-amber-500 hover:text-black">Our Story</a>
-            <a href="#impact" class="block py-3 px-4 text-sm text-gray-300 hover:bg-amber-500 hover:text-black">Impact</a>
-            <a href="#gallery" class="block py-3 px-4 text-sm text-gray-300 hover:bg-amber-500 hover:text-black">Gallery</a>
-            <a href="#faq" class="block py-3 px-4 text-sm text-gray-300 hover:bg-amber-500 hover:text-black">FAQ</a>
-        </div>
+         <!-- Positioned menu right below the navbar -->
+         <div id="mobile-menu" class="hidden md:hidden bg-black/80 text-center backdrop-blur-sm absolute w-full left-0 top-full">
+            <a href="#home" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">Home</a>
+            <a href="#story" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">Our Story</a>
+            <a href="#impact" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">Impact</a>
+            <a href="#gallery" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">Gallery</a>
+            <a href="#faq" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">FAQ</a>
+         </div>
     </nav>
 
     <section id="home" class="hero-section">
@@ -295,11 +332,13 @@
         
         <div class="hero-content h-full flex items-center justify-center text-center px-6">
             <div class="max-w-5xl reveal active">
-                <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold mb-6 leading-tight animate-title">
-                    Pure <span class="text-amber-500">Kenyan</span> Honey
+                <!-- Responsive title font size -->
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-bold mb-6 leading-tight animate-title">
+                    Honey with a <span class="text-amber-500">Kenyan</span> Heart
                 </h1>
-                <p class="text-lg md:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">
-                    Every drop empowers youth. Every jar creates futures. Wild honey with a purpose.
+                <!-- Responsive subtitle font size -->
+                <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">
+                    Pure, wild honey from our Oklahoma apiary, funding a Kenyan future.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="#gallery" class="bg-amber-500 text-zinc-900 px-8 py-3 rounded-full font-semibold hover:bg-amber-400 transition transform hover:scale-105">
@@ -313,27 +352,32 @@
         </div>
     </section>
 
-    <section id="mission" class="py-24 bg-zinc-900 text-center reveal">
+    <!-- Responsive section padding -->
+    <section id="mission" class="py-20 lg:py-24 bg-zinc-900 text-center reveal">
         <div class="container mx-auto px-6 max-w-4xl">
             <h2 class="text-2xl font-bold text-amber-500 mb-4">Our Mission</h2>
-            <p class="text-3xl md:text-4xl text-gray-200 leading-relaxed">
+            <!-- Responsive text size -->
+            <p class="text-2xl md:text-3xl lg:text-4xl text-gray-200 leading-relaxed">
                 All proceeds from Nyuki Asali go towards helping Kenyan orphans aging out of orphanages with transitional housing, case management, mental health assistance, and skills training.
             </p>
         </div>
     </section>
 
-    <section id="story" class="py-32 bg-gradient-to-b from-zinc-900 to-zinc-800 reveal">
+    <!-- Responsive section padding -->
+    <section id="story" class="py-20 lg:py-28 bg-gradient-to-b from-zinc-900 to-zinc-800 reveal">
         <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="space-y-6">
-                    <h2 class="text-5xl md:text-6xl font-bold">
+                    <!-- Responsive heading size -->
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold">
                         Where <span class="text-amber-500">Nature</span> Meets Nurture
                     </h2>
-                    <p class="text-lg text-gray-300 leading-relaxed">
+                    <!-- Responsive text size -->
+                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
                        Nyuki Asali, "Bee Honey" in Swahili, was born from a deep love for our Kenyan heritage, right here in Oklahoma, USA. As Kenyans living abroad, we wanted to build a bridge back home, connecting the sweetness of pure, wild honey with a powerful mission.
                     </p>
-                    <p class="text-lg text-gray-300 leading-relaxed">
-                       Our apiary in Oklahoma is where our journey begins. Soon, we will expand our hives to the beautiful landscapes of Kenya, working hand-in-hand with local beekeepers and honoring the ancient traditions that make our honey as vibrant as the land itself.
+                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+                        Our apiary in Oklahoma is where our journey begins. Soon, we will expand our hives to the beautiful landscapes of Kenya, working hand-in-hand with local beekeepers and honoring the ancient traditions that make our honey as vibrant as the land itself.
                     </p>
                 </div>
                 
@@ -345,62 +389,68 @@
         </div>
     </section>
     
-    <section id="values" class="py-32 bg-zinc-800 reveal relative">
+    <!-- Responsive section padding -->
+    <section id="values" class="py-20 lg:py-28 bg-zinc-800 reveal relative">
         <div class="honeycomb-bg"></div>
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-16">
-                 <h2 class="text-5xl md:text-6xl font-bold mb-4">
+            <div class="text-center mb-12 md:mb-16">
+                 <!-- Responsive heading size -->
+                 <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
                     Our Core <span class="text-amber-500">Values</span>
                 </h2>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center p-8 glass rounded-3xl parallax-card">
-                    <i class="fas fa-fist-raised text-5xl text-amber-500 mb-4"></i>
+            <!-- Responsive grid: 1-col -> 2-col -> 4-col -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center glass parallax-card hexagon-clip">
+                    <i class="fas fa-fist-raised text-5xl text-amber-500 mb-4 icon-buzz"></i>
                     <h3 class="text-xl font-bold mb-2">Empowerment</h3>
                 </div>
-                <div class="text-center p-8 glass rounded-3xl parallax-card">
-                    <i class="fas fa-users text-5xl text-amber-500 mb-4"></i>
+                <div class="text-center glass parallax-card hexagon-clip">
+                    <i class="fas fa-users text-5xl text-amber-500 mb-4 icon-buzz"></i>
                     <h3 class="text-xl font-bold mb-2">Community</h3>
                 </div>
-                <div class="text-center p-8 glass rounded-3xl parallax-card">
-                    <i class="fas fa-shield-alt text-5xl text-amber-500 mb-4"></i>
+                <div class="text-center glass parallax-card hexagon-clip">
+                    <i class="fas fa-shield-alt text-5xl text-amber-500 mb-4 icon-buzz"></i>
                     <h3 class="text-xl font-bold mb-2">Integrity</h3>
                 </div>
-                <div class="text-center p-8 glass rounded-3xl parallax-card">
-                    <i class="fas fa-hands-helping text-5xl text-amber-500 mb-4"></i>
+                <div class="text-center glass parallax-card hexagon-clip">
+                    <i class="fas fa-hands-helping text-5xl text-amber-500 mb-4 icon-buzz"></i>
                     <h3 class="text-xl font-bold mb-2">Service to Others</h3>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="impact" class="py-32 bg-gradient-to-b from-zinc-800 to-zinc-900 reveal">
+    <!-- Responsive section padding -->
+    <section id="impact" class="py-20 lg:py-28 bg-gradient-to-b from-zinc-800 to-zinc-900 reveal">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl md:text-6xl font-bold mb-4">
+            <div class="text-center mb-12 md:mb-16">
+                <!-- Responsive heading size -->
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
                     Creating <span class="text-amber-500">Futures</span>
                 </h2>
                 <p class="text-xl text-gray-400">100% of profits empower Kenyan youth through</p>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-                <div class="text-center p-8 glass rounded-3xl parallax-card">
-                    <i class="fas fa-home text-5xl text-amber-500 mb-4"></i>
+            <!-- Responsive grid: 1-col -> 2-col -> 4-col -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+                <div class="text-center glass parallax-card hexagon-clip">
+                    <i class="fas fa-home text-5xl text-amber-500 mb-4 icon-buzz"></i>
                     <h3 class="text-xl font-bold mb-2">Housing</h3>
                     <p class="text-gray-400">Safe transitional homes</p>
                 </div>
-                <div class="text-center p-8 glass rounded-3xl parallax-card">
-                    <i class="fas fa-graduation-cap text-5xl text-amber-500 mb-4"></i>
+                <div class="text-center glass parallax-card hexagon-clip">
+                    <i class="fas fa-graduation-cap text-5xl text-amber-500 mb-4 icon-buzz"></i>
                     <h3 class="text-xl font-bold mb-2">Education</h3>
                     <p class="text-gray-400">Skills & training programs</p>
                 </div>
-                <div class="text-center p-8 glass rounded-3xl parallax-card">
-                    <i class="fas fa-heart text-5xl text-amber-500 mb-4"></i>
+                <div class="text-center glass parallax-card hexagon-clip">
+                    <i class="fas fa-heart text-5xl text-amber-500 mb-4 icon-buzz"></i>
                     <h3 class="text-xl font-bold mb-2">Wellness</h3>
                     <p class="text-gray-400">Mental health support</p>
                 </div>
-                <div class="text-center p-8 glass rounded-3xl parallax-card">
-                    <i class="fas fa-briefcase text-5xl text-amber-500 mb-4"></i>
+                <div class="text-center glass parallax-card hexagon-clip">
+                    <i class="fas fa-briefcase text-5xl text-amber-500 mb-4 icon-buzz"></i>
                     <h3 class="text-xl font-bold mb-2">Employment</h3>
                     <p class="text-gray-400">Job placement help</p>
                 </div>
@@ -408,13 +458,16 @@
         </div>
     </section>
 
-    <section id="gallery" class="py-32 bg-zinc-900 reveal relative">
+    <!-- Responsive section padding -->
+    <section id="gallery" class="py-20 lg:py-28 bg-zinc-900 reveal relative">
         <div class="honeycomb-bg"></div>
          <div class="container mx-auto px-6 relative z-10">
-            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16">
+            <!-- Responsive heading size -->
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 md:mb-16">
                 From Our <span class="text-amber-500">Community</span>
             </h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <!-- Responsive grid: 1-col -> 2-col -> 3-col -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/5WP2QQV4/MOCKUPS.png" alt="Nyuki Asali Mockups" loading="lazy"></div>
                 <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/TDtnrjwB/Whats-App-Image-2025-09-07-at-21-49-35.jpg" alt="Community member" loading="lazy"></div>
                 <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/v4wghYKF/SDFGGDFG.png" alt="Honey Jar Detail" loading="lazy"></div>
@@ -425,9 +478,11 @@
         </div>
     </section>
 
-    <section id="faq" class="py-32 bg-gradient-to-b from-zinc-900 to-zinc-950 reveal">
+    <!-- Responsive section padding -->
+    <section id="faq" class="py-20 lg:py-28 bg-gradient-to-b from-zinc-900 to-zinc-950 reveal">
         <div class="container mx-auto px-6 max-w-3xl">
-            <h2 class="text-5xl md:text-6xl font-bold text-center mb-16">
+            <!-- Responsive heading size -->
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 md:mb-16">
                 Common <span class="text-amber-500">Questions</span>
             </h2>
             <div id="faq-accordion" class="space-y-4">
@@ -435,43 +490,71 @@
                     <div class="faq-question flex justify-between items-center w-full">
                         <h3 class="text-xl font-semibold text-text-light">Is your honey truly raw and organic?</h3><i class="fas fa-chevron-down icon text-amber-500"></i>
                     </div>
-                    <div class="faq-answer mt-2"><p>Absolutely. Our honey is harvested directly from wild hives and is never heated, pasteurized, or processed. We add no sugars or additives, ensuring you get 100% pure, natural honey.</p></div>
+                    <div class="faq-answer mt-2"><p class="text-base md:text-lg">Absolutely. Our honey is harvested directly from wild hives and is never heated, pasteurized, or processed. We add no sugars or additives, ensuring you get 100% pure, natural honey.</p></div>
                 </div>
                 <div class="glass rounded-2xl p-6">
                     <div class="faq-question flex justify-between items-center w-full">
                         <h3 class="text-xl font-semibold text-text-light">How do my purchases support Kenyan youth?</h3><i class="fas fa-chevron-down icon text-amber-500"></i>
                     </div>
-                    <div class="faq-answer mt-2"><p>100% of our profits go directly to our mission. The funds are used to provide essential services like transitional housing, job skills training, mental health support, and case management for young adults aging out of the orphanage system in Kenya.</p></div>
+                    <div class="faq-answer mt-2"><p class="text-base md:text-lg">100% of our profits go directly to our mission. The funds are used to provide essential services like transitional housing, job skills training, mental health support, and case management for young adults aging out of the orphanage system in Kenya.</p></div>
                 </div>
                 <div class="glass rounded-2xl p-6">
                     <div class="faq-question flex justify-between items-center w-full">
                         <h3 class="text-xl font-semibold text-text-light">Where do you ship to?</h3><i class="fas fa-chevron-down icon text-amber-500"></i>
                     </div>
-                    <div class="faq-answer mt-2"><p>Currently, we ship to all locations within the USA. We plan to expand to international shipping, including Kenya, very soon. Sign up for our newsletter to be the first to know!</p></div>
+                    <div class="faq-answer mt-2"><p class="text-base md:text-lg">Currently, we ship to all locations within the USA. We plan to expand to international shipping, including Kenya, very soon. Sign up for our newsletter to be the first to know!</p></div>
                 </div>
             </div>
         </div>
     </section>
 
     <footer id="contact" class="py-20 bg-zinc-950">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-8">Join Our <span class="text-amber-500">Hive</span></h2>
-            <p class="text-xl text-gray-400 mb-8 max-w-md mx-auto">Subscribe for updates on our impact and be the first to know about new honey batches.</p>
-            
-            <div class="max-w-md mx-auto mb-12">
-                <form class="flex flex-col sm:flex-row gap-4">
-                    <input type="email" placeholder="Your email address" class="flex-1 bg-zinc-800 text-white px-6 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500">
-                    <button type="submit" class="bg-amber-500 text-zinc-900 px-8 py-4 rounded-full font-semibold hover:bg-amber-400 transition">Subscribe</button>
-                </form>
+        <div class="container mx-auto px-6">
+            <!-- Main Footer Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 text-center md:text-left">
+                
+                <!-- Column 1: Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#home" class="flex items-center justify-center md:justify-start gap-3 mb-4">
+                         <img src="https://i.ibb.co/Zp8m5tBC/icon-on-dark.png" alt="Nyuki Asali Logo" class="h-16 w-auto">
+                    </a>
+                    <p class="text-gray-400 max-w-md mx-auto md:mx-0 text-base">
+                        Pure Kenyan honey with a purpose. 100% of profits empower Kenyan youth aging out of orphanages.
+                    </p>
+                </div>
+                
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-base">
+                        <li><a href="#home" class="text-gray-400 hover:text-amber-500 transition">Home</a></li>
+                        <li><a href="#story" class="text-gray-400 hover:text-amber-500 transition">Our Story</a></li>
+                        <li><a href="#impact" class="text-gray-400 hover:text-amber-500 transition">Impact</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-amber-500 transition">Gallery</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-amber-500 transition">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3: Follow Us -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Follow Us</h3>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
             </div>
             
-            <div class="flex justify-center gap-6 mb-8">
-                <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-twitter"></i></a>
+            <!-- Bottom Bar -->
+            <div class="border-t border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+                <p>© 2025 Nyuki Asali. Pure honey, pure impact.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-amber-500 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-amber-500 transition">Terms of Service</a>
+                </div>
             </div>
-            
-            <p class="text-gray-500">© 2025 Nyuki Asali. Pure honey, pure impact.</p>
         </div>
     </footer>
 
@@ -584,16 +667,17 @@
             }, 3000);
         }
         
-        document.querySelector('footer form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const input = e.target.querySelector('input');
-            if (input.value && input.value.includes('@')) {
-                showToast('Welcome to the hive! 🐝');
-                input.value = '';
-            } else {
-                showToast('Please enter a valid email.');
-            }
-        });
+        /* REMOVED: Footer form submit listener */
+        // document.querySelector('footer form').addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     const input = e.target.querySelector('input');
+        //     if (input.value && input.val.includes('@')) {
+        //         showToast('Welcome to the hive! 🐝');
+        //         input.value = '';
+        //     } else {
+        //         showToast('Please enter a valid email.');
+        //     }
+        // });
 
         // Animate title words
         const title = document.querySelector('.animate-title');
@@ -621,4 +705,3 @@
     </script>
 </body>
 </html>
-
