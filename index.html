@@ -1,706 +1,871 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nyuki Asali - Pure Honey, Kenyan Purpose</title>
+    <title>Nyuki Asali | Pure Honey, Kenyan Purpose</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for High-End Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#E1C16E',
+                        'gold-dark': '#B89645',
+                        charcoal: '#0F0F0F',
+                        paper: '#F5F5F0',
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         :root {
-            --bg-dark: #121212;
-            --bg-light-dark: #1a1a1a;
-            --gold: #E1C16E;
-            --text-light: #f5f5f5;
-            --text-muted: #a3a3a3;
-        }
-        
-        html {
-             /* Smooth scroll for anchor links */
-            scroll-behavior: smooth;
+            --cursor-size: 20px;
+            --cursor-hover-size: 60px;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: #0F0F0F;
+            color: #F5F5F0;
             overflow-x: hidden;
-            cursor: none;
-            /* Base font size */
-            font-size: 16px; 
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
+            cursor: none; /* Hide default cursor */
         }
 
-        /* Bee Cursor */
-        .custom-cursor {
-            width: 50px;
-            height: 50px;
-            background-image: url("https://cdn.dribbble.com/userupload/23698632/file/original-1b695b8490779da161aed4bb4c7eb7dc.gif");
-            background-size: contain;
-            background-repeat: no-repeat;
+        /* Noise Texture for "Organic" Feel */
+        .noise-overlay {
             position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 9999;
-        }
-        a:hover ~ .custom-cursor, button:hover ~ .custom-cursor {
-            transform: translate(-50%, -50%) scale(1.2);
+            z-index: 9998;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Honeycomb Background */
-        .honeycomb-bg {
-            position: absolute;
+        /* Custom Cursor */
+        #cursor-dot, #cursor-outline {
+            position: fixed;
             top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .honeycomb-bg::before {
-            content: '';
-            position: absolute;
-            top: -25%; left: -25%;
-            width: 150%; height: 150%;
-            /* Increased opacity for more presence */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath fill='%23e1c16e' fill-opacity='0.05' d='M28 12.125L14 4.04 0 12.125v16.25L14 36.46l14-8.085v-16.25zM14 0L0 8.085v24.375L14 40.54l14-8.085V8.085L14 0z'%3E%3C/path%3E%3C/svg%3E");
-            animation: pan-glow 30s linear infinite;
-        }
-
-        @keyframes pan-glow {
-            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { transform: translate(28px, 48.5px) rotate(5deg); opacity: 0.7; }
-        }
-        
-
-        /* Hero Section */
-        .hero-section {
-            position: relative;
-            height: 100vh;
-            background-image: linear-gradient(135deg, #181818 0%, #222222 100%);
-            overflow: hidden;
-        }
-        
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(225, 193, 110, 0.08), transparent 70%);
-            animation: pulse-glow 10s ease-in-out infinite alternate;
-            z-index: 0;
-        }
-
-        @keyframes pulse-glow {
-            from { transform: scale(1); opacity: 0.7; }
-            to { transform: scale(1.2); opacity: 1; }
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%);
-            z-index: 1;
-        }
-        
-        .hero-content { position: relative; z-index: 2; }
-        
-        /* Dripping Honey Animation */
-        .honey-drip {
-            position: absolute;
-            width: 4px;
-            height: 0;
-            background: linear-gradient(to bottom, #f59e0b, #d97706);
-            border-radius: 0 0 50% 50%;
-            animation: drip 4s ease-in-out infinite;
-            z-index: 3;
-        }
-        
-        @keyframes drip {
-            0%, 100% { height: 0; opacity: 0; transform: translateY(0); }
-            20% { height: 80px; opacity: 1; }
-            80% { height: 80px; opacity: 1; transform: translateY(100px); }
-            99% { height: 0; opacity: 0; transform: translateY(100px); }
-        }
-
-        /* Parallax Cards */
-        .parallax-card {
-            transform-style: preserve-3d;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Glassmorphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Scroll Progress Bar */
-        .scroll-progress {
-            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
-            background: linear-gradient(to right, #f59e0b, #d97706);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
             z-index: 9999;
-            transition: width 0.1s ease;
-        }
-        
-        /* Loader Animation */
-        .loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #121212;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000;
-            transition: opacity 0.5s ease;
-        }
-        
-        .honeycomb-loader { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .honeycomb-cell {
-            width: 40px; height: 40px; background: var(--gold);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            animation: honeyPulse 1.5s ease-in-out infinite;
-        }
-        @keyframes honeyPulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1); } }
-        .honeycomb-cell:nth-child(1) { animation-delay: 0s; } .honeycomb-cell:nth-child(2) { animation-delay: 0.1s; } .honeycomb-cell:nth-child(3) { animation-delay: 0.2s; }
-        .honeycomb-cell:nth-child(4) { animation-delay: 0.3s; } .honeycomb-cell:nth-child(5) { animation-delay: 0.4s; } .honeycomb-cell:nth-child(6) { animation-delay: 0.5s; }
-        
-        /* Navbar Scroll Effect */
-        .navbar { transition: all 0.3s ease; }
-        .navbar.scrolled {
-            background: rgba(18, 18, 18, 0.85);
-            backdrop-filter: blur(10px);
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Section Reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .gallery-item { @apply rounded-lg overflow-hidden transition-transform duration-300 transform hover:scale-105; }
-        
-        /* Uniform Gallery Item */
-        .gallery-item {
-            aspect-ratio: 1 / 1;
-        }
-        .gallery-img { 
-            @apply w-full h-full object-cover; 
-        }
-        
-        /* FAQ Accordion */
-        .faq-question { cursor: pointer; }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-            color: var(--text-muted);
-        }
-        .faq-question .icon { transition: transform 0.3s ease; }
-
-        .animate-title span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(30px);
-            transition-property: opacity, transform;
-            transition-timing-function: ease;
-            transition-duration: 0.6s;
-        }
-
-        /* Flying Bees Animation */
-        .flying-bees-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
         }
-        .flying-bee {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            opacity: 0;
-            background-image: url('https://cdn.pixabay.com/animation/2022/11/15/19/43/19-43-25-281_512.gif');
-            background-size: contain;
-            animation: fly 20s linear infinite;
+        #cursor-dot {
+            width: 8px; height: 8px;
+            background-color: #E1C16E;
         }
-        .flying-bee:nth-child(1) { top: 20%; animation-duration: 15s; animation-delay: 0s; }
-        .flying-bee:nth-child(2) { top: 50%; animation-duration: 25s; animation-delay: 5s; }
-        .flying-bee:nth-child(3) { top: 70%; animation-duration: 18s; animation-delay: 12s; }
-        .flying-bee:nth-child(4) { top: 85%; animation-duration: 22s; animation-delay: 15s; }
-
-
-        @keyframes fly {
-            0% { left: -10%; opacity: 0; transform: rotate(10deg) scale(0.8); }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { left: 110%; opacity: 0; transform: rotate(-10deg) scale(1.2); }
+        #cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(225, 193, 110, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
-        
-        /* === NEW: Hexagon Clipping Path === */
-        .hexagon-clip {
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            /* Ensure the content isn't cut off strangely */
-            /* We can make it a bit taller to fit the hexagon shape */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            /* Removed aspect-ratio, added padding for content */
-            padding: 3rem 1.5rem; /* 48px top/bottom, 24px left/right */
-            min-height: 220px; /* Give it a good minimum size */
-        }
-        
-        /* === NEW: Icon Buzz Animation === */
-        .icon-buzz {
-             transition: transform 0.2s ease-in-out;
-        }
-        .hexagon-clip:hover .icon-buzz {
-            animation: buzz 0.3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes buzz {
-            from { transform: rotate(-5deg) scale(1.1); }
-            to { transform: rotate(5deg) scale(1.1); }
+        body.hovering #cursor-outline {
+            width: 80px; height: 80px;
+            background-color: rgba(225, 193, 110, 0.1);
+            border-color: transparent;
+            backdrop-filter: blur(2px);
         }
 
+        /* Maasai Pattern Overlay */
+        .maasai-pattern {
+            background-color: #0F0F0F;
+            background-image: radial-gradient(#2a2a2a 15%, transparent 16%), radial-gradient(#2a2a2a 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.3;
+        }
+
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0F0F0F; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E1C16E; }
+
+        /* Loader */
+        .loader-wrap {
+            position: fixed; inset: 0; z-index: 10000;
+            background: #0F0F0F;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .drop {
+            width: 20px; height: 20px;
+            background: #E1C16E;
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            animation: dropPulse 1.5s infinite ease-in-out;
+        }
+        @keyframes dropPulse {
+            0% { transform: rotate(45deg) scale(1); box-shadow: 0 0 0 0 rgba(225, 193, 110, 0.7); }
+            70% { transform: rotate(45deg) scale(1.2); box-shadow: 0 0 0 20px rgba(225, 193, 110, 0); }
+            100% { transform: rotate(45deg) scale(1); box-shadow: 0 0 0 0 rgba(225, 193, 110, 0); }
+        }
+
+        /* Canvas */
+        canvas { display: block; position: fixed; top: 0; left: 0; z-index: -1; }
+
+        /* Typography Utilities */
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            color: transparent;
+        }
+
+        /* Product Card Hover Effect */
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+        .product-card:hover .add-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
-<body class="bg-zinc-900 text-white">
+<body class="antialiased selection:bg-gold selection:text-black">
 
-    <div class="loader" id="loader">
-        <div class="honeycomb-loader">
-            <div class="honeycomb-cell"></div><div class="honeycomb-cell"></div><div class="honeycomb-cell"></div>
-            <div class="honeycomb-cell"></div><div class="honeycomb-cell"></div><div class="honeycomb-cell"></div>
+    <!-- Overlays -->
+    <div class="loader-wrap" id="loader">
+        <div class="flex flex-col items-center gap-4">
+            <div class="drop"></div>
+            <p class="font-serif text-gold tracking-widest text-sm uppercase">Nyuki Asali</p>
         </div>
     </div>
+    <div class="noise-overlay"></div>
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+    <canvas id="canvas"></canvas>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="custom-cursor" id="cursor"></div>
-
-    <div class="flying-bees-container">
-        <div class="flying-bee"></div>
-        <div class="flying-bee"></div>
-        <div class="flying-bee"></div>
-        <div class="flying-bee"></div>
-    </div>
-
-    <nav class="navbar fixed top-0 w-full z-50 py-4" id="navbar">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#home" class="flex items-center gap-3">
-                 <img src="https://i.ibb.co/Zp8m5tBC/icon-on-dark.png" alt="Nyuki Asali Logo" class="h-16 w-auto transition-transform duration-300 hover:scale-110">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 transition-all duration-300" id="navbar">
+        <div class="flex justify-between items-center max-w-7xl mx-auto">
+            <a href="#" class="group flex items-center gap-2 z-50 magnetic-target">
+                <i class="fas fa-hexagon text-gold text-2xl transition-transform group-hover:rotate-180 duration-700"></i>
+                <span class="font-serif text-xl font-bold tracking-wide">Nyuki Asali</span>
             </a>
-            
-            <div class="hidden md:flex items-center gap-8 text-lg">
-                <a href="#home" class="hover:text-amber-500 transition">Home</a>
-                <a href="#story" class="hover:text-amber-500 transition">Our Story</a>
-                <a href="#impact" class="hover:text-amber-500 transition">Impact</a>
-                <a href="#gallery" class="hover:text-amber-500 transition">Gallery</a>
-                <a href="#faq" class="hover:text-amber-500 transition">FAQ</a>
-                <a href="#contact" class="bg-amber-500 text-zinc-900 px-6 py-2 rounded-full hover:bg-amber-400 transition font-semibold">Support</a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-10 text-sm font-medium tracking-widest uppercase">
+                <a href="#mission" class="hover:text-gold transition-colors magnetic-target">Mission</a>
+                <a href="#transparency" class="hover:text-gold transition-colors magnetic-target">Transparency</a>
+                <a href="#shop" class="hover:text-gold transition-colors magnetic-target">Shop</a>
+                <a href="#partners" class="hover:text-gold transition-colors magnetic-target">Partners</a>
+                <a href="#contact" class="px-6 py-2 border border-white/20 rounded-full hover:bg-gold hover:text-black hover:border-gold transition-all duration-300 magnetic-target">Support</a>
             </div>
-            
-            <!-- Increased padding for better tap target -->
-            <button id="mobile-menu-button" class="md:hidden text-amber-500 z-10 p-2">
-                <i class="fas fa-bars text-2xl"></i>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden z-50 text-gold text-2xl magnetic-target">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
-         <!-- Positioned menu right below the navbar -->
-         <div id="mobile-menu" class="hidden md:hidden bg-black/80 text-center backdrop-blur-sm absolute w-full left-0 top-full">
-            <a href="#home" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">Home</a>
-            <a href="#story" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">Our Story</a>
-            <a href="#impact" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">Impact</a>
-            <a href="#gallery" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">Gallery</a>
-            <a href="#faq" class="block py-4 px-4 text-lg text-gray-300 hover:bg-amber-500 hover:text-black">FAQ</a>
-         </div>
     </nav>
 
-    <section id="home" class="hero-section">
-        <div class="honey-drip" style="left: 20%; animation-delay: 0s;"></div>
-        <div class="honey-drip" style="left: 50%; animation-delay: 1.5s;"></div>
-        <div class="honey-drip" style="left: 80%; animation-delay: 0.8s;"></div>
-        <div class="hero-overlay"></div>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-charcoal z-40 transform translate-x-full transition-transform duration-500 flex items-center justify-center">
+        <div class="flex flex-col gap-8 text-center font-serif text-3xl">
+            <a href="#mission" class="menu-link hover:text-gold italic">The Mission</a>
+            <a href="#transparency" class="menu-link hover:text-gold italic">Transparency</a>
+            <a href="#shop" class="menu-link hover:text-gold italic">Shop</a>
+            <a href="#partners" class="menu-link hover:text-gold italic">Partners</a>
+            <a href="#contact" class="menu-link hover:text-gold italic">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-charcoal z-0"></div>
         
-        <div class="hero-content h-full flex items-center justify-center text-center px-6">
-            <div class="max-w-5xl reveal active">
-                <!-- Responsive title font size -->
-                <h1 class="text-5xl sm:text-7xl md:text-8xl font-bold mb-6 leading-tight animate-title">
-                    Honey with a <span class="text-amber-500">Kenyan</span> Heart
-                </h1>
-                <!-- Responsive subtitle font size -->
-                <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">
-                    Pure, wild honey from our Oklahoma apiary, funding a Kenyan future.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#gallery" class="bg-amber-500 text-zinc-900 px-8 py-3 rounded-full font-semibold hover:bg-amber-400 transition transform hover:scale-105">
-                        View Gallery
-                    </a>
-                    <a href="#mission" class="glass px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition">
-                        Our Mission
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+        <div class="relative z-10 text-center max-w-5xl">
+            <p class="hero-subtitle text-gold font-sans tracking-[0.3em] uppercase text-sm mb-6 opacity-0 translate-y-10">From Oklahoma to Kenya</p>
+            
+            <h1 class="font-serif text-5xl md:text-8xl lg:text-9xl leading-[0.9] mb-8 overflow-hidden">
+                <div class="hero-line block overflow-hidden"><span class="block translate-y-full">Liquid</span></div>
+                <div class="hero-line block overflow-hidden"><span class="block translate-y-full text-gold italic">Gold</span></div>
+                <div class="hero-line block overflow-hidden"><span class="block translate-y-full">With Purpose</span></div>
+            </h1>
 
-    <!-- Responsive section padding -->
-    <section id="mission" class="py-20 lg:py-24 bg-zinc-900 text-center reveal">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <h2 class="text-2xl font-bold text-amber-500 mb-4">Our Mission</h2>
-            <!-- Responsive text size -->
-            <p class="text-2xl md:text-3xl lg:text-4xl text-gray-200 leading-relaxed">
-                All proceeds from Nyuki Asali go towards helping Kenyan orphans aging out of orphanages with transitional housing, case management, mental health assistance, and skills training.
+            <p class="hero-desc max-w-xl mx-auto text-gray-400 text-lg leading-relaxed mb-10 opacity-0">
+                Small batch, raw wildflower honey harvesting a brighter future for Kenyan orphans.
             </p>
-        </div>
-    </section>
 
-    <!-- Responsive section padding -->
-    <section id="story" class="py-20 lg:py-28 bg-gradient-to-b from-zinc-900 to-zinc-800 reveal">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-                <div class="space-y-6">
-                    <!-- Responsive heading size -->
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold">
-                        Where <span class="text-amber-500">Nature</span> Meets Nurture
-                    </h2>
-                    <!-- Responsive text size -->
-                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
-                       Nyuki Asali, "Bee Honey" in Swahili, was born from a deep love for our Kenyan heritage, right here in Oklahoma, USA. As Kenyans living abroad, we wanted to build a bridge back home, connecting the sweetness of pure, wild honey with a powerful mission.
-                    </p>
-                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
-                        Our apiary in Oklahoma is where our journey begins. Soon, we will expand our hives to the beautiful landscapes of Kenya, working hand-in-hand with local beekeepers and honoring the ancient traditions that make our honey as vibrant as the land itself.
-                    </p>
-                </div>
-                
-                <div class="relative">
-                    <div class="absolute inset-0 bg-amber-500 rounded-3xl blur-3xl opacity-20"></div>
-                    <img src="https://i.ibb.co/zV6dQMSQ/Whats-App-Image-2025-09-07-at-21-49-36.jpg" alt="Beekeeper" class="relative rounded-3xl shadow-2xl w-full parallax-card">
-                </div>
+            <div class="hero-btn opacity-0 translate-y-10">
+                <a href="#mission" class="group relative inline-flex items-center justify-center w-24 h-24 rounded-full border border-white/20 hover:border-gold transition-colors duration-300 magnetic-target">
+                    <span class="sr-only">Scroll Down</span>
+                    <i class="fas fa-arrow-down text-white group-hover:text-gold transition-colors"></i>
+                    <!-- Spinning Text Circle -->
+                    <svg class="absolute w-full h-full animate-[spin_10s_linear_infinite] opacity-50 group-hover:opacity-100 transition-opacity" viewBox="0 0 100 100">
+                        <defs><path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" /></defs>
+                        <text font-size="11.5">
+                            <textPath xlink:href="#circle" class="fill-current text-white text-[10px] tracking-widest uppercase">
+                                • Discover The Mission • Nyuki Asali
+                            </textPath>
+                        </text>
+                    </svg>
+                </a>
             </div>
         </div>
-    </section>
-    
-    <!-- Responsive section padding -->
-    <section id="values" class="py-20 lg:py-28 bg-zinc-800 reveal relative">
-        <div class="honeycomb-bg"></div>
+    </header>
+
+    <!-- Story Section (Parallax) -->
+    <section id="story" class="py-32 relative overflow-hidden">
+        <div class="maasai-pattern absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none"></div>
+        
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-12 md:mb-16">
-                 <!-- Responsive heading size -->
-                 <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                    Our Core <span class="text-amber-500">Values</span>
-                </h2>
-            </div>
-            <!-- Responsive grid: 1-col -> 2-col -> 4-col -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center glass parallax-card hexagon-clip">
-                    <i class="fas fa-fist-raised text-5xl text-amber-500 mb-4 icon-buzz"></i>
-                    <h3 class="text-xl font-bold mb-2">Empowerment</h3>
-                </div>
-                <div class="text-center glass parallax-card hexagon-clip">
-                    <i class="fas fa-users text-5xl text-amber-500 mb-4 icon-buzz"></i>
-                    <h3 class="text-xl font-bold mb-2">Community</h3>
-                </div>
-                <div class="text-center glass parallax-card hexagon-clip">
-                    <i class="fas fa-shield-alt text-5xl text-amber-500 mb-4 icon-buzz"></i>
-                    <h3 class="text-xl font-bold mb-2">Integrity</h3>
-                </div>
-                <div class="text-center glass parallax-card hexagon-clip">
-                    <i class="fas fa-hands-helping text-5xl text-amber-500 mb-4 icon-buzz"></i>
-                    <h3 class="text-xl font-bold mb-2">Service to Others</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Responsive section padding -->
-    <section id="impact" class="py-20 lg:py-28 bg-gradient-to-b from-zinc-800 to-zinc-900 reveal">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12 md:mb-16">
-                <!-- Responsive heading size -->
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                    Creating <span class="text-amber-500">Futures</span>
-                </h2>
-                <p class="text-xl text-gray-400">100% of profits empower Kenyan youth through</p>
-            </div>
-            
-            <!-- Responsive grid: 1-col -> 2-col -> 4-col -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-                <div class="text-center glass parallax-card hexagon-clip">
-                    <i class="fas fa-home text-5xl text-amber-500 mb-4 icon-buzz"></i>
-                    <h3 class="text-xl font-bold mb-2">Housing</h3>
-                    <p class="text-gray-400">Safe transitional homes</p>
-                </div>
-                <div class="text-center glass parallax-card hexagon-clip">
-                    <i class="fas fa-graduation-cap text-5xl text-amber-500 mb-4 icon-buzz"></i>
-                    <h3 class="text-xl font-bold mb-2">Education</h3>
-                    <p class="text-gray-400">Skills & training programs</p>
-                </div>
-                <div class="text-center glass parallax-card hexagon-clip">
-                    <i class="fas fa-heart text-5xl text-amber-500 mb-4 icon-buzz"></i>
-                    <h3 class="text-xl font-bold mb-2">Wellness</h3>
-                    <p class="text-gray-400">Mental health support</p>
-                </div>
-                <div class="text-center glass parallax-card hexagon-clip">
-                    <i class="fas fa-briefcase text-5xl text-amber-500 mb-4 icon-buzz"></i>
-                    <h3 class="text-xl font-bold mb-2">Employment</h3>
-                    <p class="text-gray-400">Job placement help</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Responsive section padding -->
-    <section id="gallery" class="py-20 lg:py-28 bg-zinc-900 reveal relative">
-        <div class="honeycomb-bg"></div>
-         <div class="container mx-auto px-6 relative z-10">
-            <!-- Responsive heading size -->
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 md:mb-16">
-                From Our <span class="text-amber-500">Community</span>
-            </h2>
-            <!-- Responsive grid: 1-col -> 2-col -> 3-col -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/5WP2QQV4/MOCKUPS.png" alt="Nyuki Asali Mockups" loading="lazy"></div>
-                <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/TDtnrjwB/Whats-App-Image-2025-09-07-at-21-49-35.jpg" alt="Community member" loading="lazy"></div>
-                <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/v4wghYKF/SDFGGDFG.png" alt="Honey Jar Detail" loading="lazy"></div>
-                <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/5WP5N76b/SDGDFSGDF.png" alt="Nyuki Asali Branding" loading="lazy"></div>
-                <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/Fk6hZ5vR/Whats-App-Image-2025-09-07-at-21-48-36.jpg" alt="Community member" loading="lazy"></div>
-                <div class="gallery-item"><img class="gallery-img" src="https://i.ibb.co/GfGynd1N/Whats-App-Image-2025-09-07-at-21-49-35-1.jpg" alt="Community member" loading="lazy"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Responsive section padding -->
-    <section id="faq" class="py-20 lg:py-28 bg-gradient-to-b from-zinc-900 to-zinc-950 reveal">
-        <div class="container mx-auto px-6 max-w-3xl">
-            <!-- Responsive heading size -->
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 md:mb-16">
-                Common <span class="text-amber-500">Questions</span>
-            </h2>
-            <div id="faq-accordion" class="space-y-4">
-                <div class="glass rounded-2xl p-6">
-                    <div class="faq-question flex justify-between items-center w-full">
-                        <h3 class="text-xl font-semibold text-text-light">Is your honey truly raw and organic?</h3><i class="fas fa-chevron-down icon text-amber-500"></i>
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <!-- Image with reveal effect -->
+                <div class="relative group magnetic-target">
+                    <div class="absolute inset-0 bg-gold transform translate-x-4 translate-y-4 rounded-lg transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
+                    <div class="relative overflow-hidden rounded-lg aspect-[4/5] parallax-img-container">
+                        <img src="https://i.ibb.co/zV6dQMSQ/Whats-App-Image-2025-09-07-at-21-49-36.jpg" alt="Beekeeper" class="object-cover w-full h-full transform scale-125 parallax-img grayscale group-hover:grayscale-0 transition-all duration-700">
                     </div>
-                    <div class="faq-answer mt-2"><p class="text-base md:text-lg">Absolutely. Our honey is harvested directly from wild hives and is never heated, pasteurized, or processed. We add no sugars or additives, ensuring you get 100% pure, natural honey.</p></div>
                 </div>
-                <div class="glass rounded-2xl p-6">
-                    <div class="faq-question flex justify-between items-center w-full">
-                        <h3 class="text-xl font-semibold text-text-light">How do my purchases support Kenyan youth?</h3><i class="fas fa-chevron-down icon text-amber-500"></i>
-                    </div>
-                    <div class="faq-answer mt-2"><p class="text-base md:text-lg">100% of our profits go directly to our mission. The funds are used to provide essential services like transitional housing, job skills training, mental health support, and case management for young adults aging out of the orphanage system in Kenya.</p></div>
-                </div>
-                <div class="glass rounded-2xl p-6">
-                    <div class="faq-question flex justify-between items-center w-full">
-                        <h3 class="text-xl font-semibold text-text-light">Where do you ship to?</h3><i class="fas fa-chevron-down icon text-amber-500"></i>
-                    </div>
-                    <div class="faq-answer mt-2"><p class="text-base md:text-lg">Currently, we ship to all locations within the USA. We plan to expand to international shipping, including Kenya, very soon. Sign up for our newsletter to be the first to know!</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <footer id="contact" class="py-20 bg-zinc-950">
-        <div class="container mx-auto px-6">
-            <!-- Main Footer Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 text-center md:text-left">
-                
-                <!-- Column 1: Brand -->
-                <div class="col-span-1 md:col-span-2">
-                    <a href="#home" class="flex items-center justify-center md:justify-start gap-3 mb-4">
-                         <img src="https://i.ibb.co/Zp8m5tBC/icon-on-dark.png" alt="Nyuki Asali Logo" class="h-16 w-auto">
-                    </a>
-                    <p class="text-gray-400 max-w-md mx-auto md:mx-0 text-base">
-                        Pure Kenyan honey with a purpose. 100% of profits empower Kenyan youth aging out of orphanages.
+                <div class="space-y-8 reveal-text">
+                    <h2 class="font-serif text-5xl md:text-6xl">
+                        Roots in the <span class="italic text-gold">Wild</span>
+                    </h2>
+                    <div class="w-20 h-[1px] bg-gold"></div>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        "Nyuki Asali" means <span class="text-white font-serif italic">Bee Honey</span> in Swahili. It represents a bridge between two worlds: the rolling plains of Oklahoma and the vibrant red soil of Kenya.
                     </p>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        We don't just sell honey. We harvest hope. Every jar tells a story of survival, resilience, and the sweet promise of a new beginning for young adults aging out of the orphanage system.
+                    </p>
+                    <div class="pt-4">
+                        <div class="flex items-center gap-8">
+                            <div>
+                                <h4 class="text-4xl font-serif text-gold counter" data-target="100">0</h4>
+                                <p class="text-xs uppercase tracking-widest text-gray-500 mt-2">% Profits Donated</p>
+                            </div>
+                            <div>
+                                <h4 class="text-4xl font-serif text-gold counter" data-target="2">0</h4>
+                                <p class="text-xs uppercase tracking-widest text-gray-500 mt-2">Continents Bridged</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <!-- Column 2: Quick Links -->
-                <div>
-                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
-                    <ul class="space-y-2 text-base">
-                        <li><a href="#home" class="text-gray-400 hover:text-amber-500 transition">Home</a></li>
-                        <li><a href="#story" class="text-gray-400 hover:text-amber-500 transition">Our Story</a></li>
-                        <li><a href="#impact" class="text-gray-400 hover:text-amber-500 transition">Impact</a></li>
-                        <li><a href="#gallery" class="text-gray-400 hover:text-amber-500 transition">Gallery</a></li>
-                        <li><a href="#faq" class="text-gray-400 hover:text-amber-500 transition">FAQ</a></li>
-                    </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Horizontal Scroll -->
+    <section id="mission" class="bg-paper text-charcoal py-32 overflow-hidden">
+        <div class="container mx-auto px-6 mb-16">
+            <h2 class="font-serif text-5xl md:text-7xl mb-6">The Impact <span class="italic text-gold-dark">Circle</span></h2>
+            <p class="max-w-xl text-gray-600">We focus on the critical transition period when support systems usually disappear.</p>
+        </div>
+
+        <!-- Horizontal Scrolling Strip -->
+        <div class="scroll-container flex flex-nowrap w-[300%] md:w-[200%] pl-6 md:pl-20 gap-8 md:gap-20">
+            
+            <!-- Card 1 -->
+            <div class="scroll-card w-[85vw] md:w-[30vw] flex-shrink-0 group cursor-pointer">
+                <div class="h-[60vh] bg-charcoal text-white p-8 md:p-12 flex flex-col justify-between rounded-none border-l-4 border-gold hover:bg-gold hover:text-black transition-colors duration-500">
+                    <div class="text-4xl md:text-6xl opacity-20 font-serif">01</div>
+                    <div>
+                        <i class="fas fa-home text-4xl mb-6"></i>
+                        <h3 class="font-serif text-3xl mb-4">Transitional Housing</h3>
+                        <p class="opacity-80 leading-relaxed">Providing a safe, stable roof over their heads so they can focus on building a future, not just surviving the night.</p>
+                    </div>
                 </div>
-                
-                <!-- Column 3: Follow Us -->
+            </div>
+
+            <!-- Card 2 -->
+            <div class="scroll-card w-[85vw] md:w-[30vw] flex-shrink-0 group cursor-pointer">
+                <div class="h-[60vh] bg-charcoal text-white p-8 md:p-12 flex flex-col justify-between rounded-none border-l-4 border-gold hover:bg-gold hover:text-black transition-colors duration-500">
+                    <div class="text-4xl md:text-6xl opacity-20 font-serif">02</div>
+                    <div>
+                        <i class="fas fa-brain text-4xl mb-6"></i>
+                        <h3 class="font-serif text-3xl mb-4">Mental Wellness</h3>
+                        <p class="opacity-80 leading-relaxed">Trauma-informed counseling and support groups to heal the invisible wounds of the past.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="scroll-card w-[85vw] md:w-[30vw] flex-shrink-0 group cursor-pointer">
+                <div class="h-[60vh] bg-charcoal text-white p-8 md:p-12 flex flex-col justify-between rounded-none border-l-4 border-gold hover:bg-gold hover:text-black transition-colors duration-500">
+                    <div class="text-4xl md:text-6xl opacity-20 font-serif">03</div>
+                    <div>
+                        <i class="fas fa-briefcase text-4xl mb-6"></i>
+                        <h3 class="font-serif text-3xl mb-4">Skill Acquisition</h3>
+                        <p class="opacity-80 leading-relaxed">Vocational training, financial literacy, and job placement services to ensure economic independence.</p>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Card 4 (CTA) -->
+             <div class="scroll-card w-[85vw] md:w-[30vw] flex-shrink-0 flex items-center justify-center">
+                 <div class="text-center">
+                    <h3 class="font-serif text-4xl md:text-5xl mb-6">Be The Change</h3>
+                    <a href="#contact" class="inline-block border-b border-black pb-1 hover:text-gold-dark hover:border-gold-dark transition-colors text-xl uppercase tracking-widest magnetic-target">Join The Movement</a>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Transparency Log Section -->
+    <section id="transparency" class="py-32 bg-zinc-950 relative border-t border-white/5">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-16">
+                <span class="text-gold text-sm tracking-[0.3em] uppercase block mb-4">Transparency Log</span>
+                <h2 class="font-serif text-4xl md:text-5xl mb-6">Impact <span class="italic text-gold">Ledger</span></h2>
+                <p class="text-gray-400">Real-time tracking of contributions sent to Kenya.</p>
+            </div>
+
+            <!-- Ledger Table Style -->
+            <div class="bg-white/5 border border-white/10 rounded-lg overflow-hidden backdrop-blur-sm">
+                <div class="grid grid-cols-12 gap-4 p-6 border-b border-white/10 text-xs uppercase tracking-widest text-gray-500 font-bold hidden md:grid">
+                    <div class="col-span-2">Date</div>
+                    <div class="col-span-5">Purpose</div>
+                    <div class="col-span-3">Recipient/Location</div>
+                    <div class="col-span-2 text-right">Amount</div>
+                </div>
+
+                <!-- Ledger Item 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-6 border-b border-white/5 hover:bg-white/5 transition-colors items-center group">
+                    <div class="col-span-1 md:col-span-2 text-gold font-mono text-sm">Oct 12, 2025</div>
+                    <div class="col-span-1 md:col-span-5 text-lg font-serif group-hover:text-gold transition-colors">Housing Deposit (3 Youths)</div>
+                    <div class="col-span-1 md:col-span-3 text-gray-400 text-sm"><i class="fas fa-map-marker-alt mr-2 text-gold/50"></i>Nairobi, Kenya</div>
+                    <div class="col-span-1 md:col-span-2 text-left md:text-right font-mono text-white">$1,200.00</div>
+                </div>
+
+                <!-- Ledger Item 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-6 border-b border-white/5 hover:bg-white/5 transition-colors items-center group">
+                    <div class="col-span-1 md:col-span-2 text-gold font-mono text-sm">Sep 28, 2025</div>
+                    <div class="col-span-1 md:col-span-5 text-lg font-serif group-hover:text-gold transition-colors">Vocational School Fees</div>
+                    <div class="col-span-1 md:col-span-3 text-gray-400 text-sm"><i class="fas fa-map-marker-alt mr-2 text-gold/50"></i>Eldoret, Kenya</div>
+                    <div class="col-span-1 md:col-span-2 text-left md:text-right font-mono text-white">$850.00</div>
+                </div>
+
+                <!-- Ledger Item 3 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-6 border-b border-white/5 hover:bg-white/5 transition-colors items-center group">
+                    <div class="col-span-1 md:col-span-2 text-gold font-mono text-sm">Sep 15, 2025</div>
+                    <div class="col-span-1 md:col-span-5 text-lg font-serif group-hover:text-gold transition-colors">Medical & Therapy Supplies</div>
+                    <div class="col-span-1 md:col-span-3 text-gray-400 text-sm"><i class="fas fa-map-marker-alt mr-2 text-gold/50"></i>Kisumu, Kenya</div>
+                    <div class="col-span-1 md:col-span-2 text-left md:text-right font-mono text-white">$450.00</div>
+                </div>
+
+                 <!-- Ledger Item 4 -->
+                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-6 hover:bg-white/5 transition-colors items-center group">
+                    <div class="col-span-1 md:col-span-2 text-gold font-mono text-sm">Aug 30, 2025</div>
+                    <div class="col-span-1 md:col-span-5 text-lg font-serif group-hover:text-gold transition-colors">Seed Funding: Micro-Business</div>
+                    <div class="col-span-1 md:col-span-3 text-gray-400 text-sm"><i class="fas fa-map-marker-alt mr-2 text-gold/50"></i>Nakuru, Kenya</div>
+                    <div class="col-span-1 md:col-span-2 text-left md:text-right font-mono text-white">$2,000.00</div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="text-xs uppercase tracking-widest text-gray-500 hover:text-gold transition-colors magnetic-target">View Full History <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Store Section -->
+    <section id="shop" class="py-32 bg-paper relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
                 <div>
-                    <h3 class="text-lg font-semibold text-white mb-4">Follow Us</h3>
-                    <div class="flex justify-center md:justify-start gap-4">
-                        <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition"><i class="fab fa-twitter"></i></a>
+                    <span class="text-gold-dark text-sm tracking-[0.3em] uppercase block mb-4">The Hive Store</span>
+                    <h2 class="font-serif text-4xl md:text-6xl text-charcoal">Support the <span class="italic text-gold-dark">Cause</span></h2>
+                </div>
+                <a href="#" class="hidden md:block text-charcoal border-b border-charcoal pb-1 hover:text-gold-dark hover:border-gold-dark transition-colors magnetic-target">View All Products</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="group product-card cursor-pointer">
+                    <div class="relative bg-white aspect-[4/5] overflow-hidden rounded-sm mb-6">
+                        <img src="https://i.ibb.co/v4wghYKF/SDFGGDFG.png" alt="Raw Honey" class="product-img w-full h-full object-cover transition-transform duration-700">
+                        <div class="absolute bottom-6 left-0 w-full flex justify-center opacity-0 translate-y-4 transition-all duration-300 add-btn">
+                            <button class="bg-charcoal text-white px-8 py-3 rounded-full hover:bg-gold-dark transition-colors magnetic-target">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start text-charcoal">
+                        <div>
+                            <h3 class="font-serif text-2xl mb-1">Wildflower Raw Honey</h3>
+                            <p class="text-sm text-gray-500">16oz • Unfiltered</p>
+                        </div>
+                        <span class="font-mono">$24.00</span>
                     </div>
                 </div>
 
+                <!-- Product 2 -->
+                <div class="group product-card cursor-pointer">
+                    <div class="relative bg-white aspect-[4/5] overflow-hidden rounded-sm mb-6">
+                        <img src="https://i.ibb.co/5WP5N76b/SDGDFSGDF.png" alt="Beeswax Candle" class="product-img w-full h-full object-cover transition-transform duration-700">
+                        <div class="absolute bottom-6 left-0 w-full flex justify-center opacity-0 translate-y-4 transition-all duration-300 add-btn">
+                            <button class="bg-charcoal text-white px-8 py-3 rounded-full hover:bg-gold-dark transition-colors magnetic-target">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start text-charcoal">
+                        <div>
+                            <h3 class="font-serif text-2xl mb-1">Pure Beeswax Candle</h3>
+                            <p class="text-sm text-gray-500">Hand-poured • 40hr Burn</p>
+                        </div>
+                        <span class="font-mono">$18.00</span>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group product-card cursor-pointer">
+                    <div class="relative bg-white aspect-[4/5] overflow-hidden rounded-sm mb-6">
+                        <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300">
+                             <i class="fas fa-tshirt text-6xl"></i>
+                        </div>
+                         <!-- Placeholder Image for shirt -->
+                        <div class="absolute bottom-6 left-0 w-full flex justify-center opacity-0 translate-y-4 transition-all duration-300 add-btn">
+                            <button class="bg-charcoal text-white px-8 py-3 rounded-full hover:bg-gold-dark transition-colors magnetic-target">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start text-charcoal">
+                        <div>
+                            <h3 class="font-serif text-2xl mb-1">The Keeper Tee</h3>
+                            <p class="text-sm text-gray-500">Organic Cotton • Cream</p>
+                        </div>
+                        <span class="font-mono">$32.00</span>
+                    </div>
+                </div>
             </div>
             
-            <!-- Bottom Bar -->
-            <div class="border-t border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
-                <p>© 2025 Nyuki Asali. Pure honey, pure impact.</p>
-                <div class="flex gap-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-amber-500 transition">Privacy Policy</a>
-                    <a href="#" class="hover:text-amber-500 transition">Terms of Service</a>
+            <div class="mt-12 text-center md:hidden">
+                 <a href="#" class="text-charcoal border-b border-charcoal pb-1 hover:text-gold-dark hover:border-gold-dark transition-colors">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Existing) -->
+    <section id="gallery" class="py-32 relative">
+        <div class="container mx-auto px-6 mb-20 text-center">
+            <span class="text-gold text-sm tracking-[0.3em] uppercase block mb-4">Community</span>
+            <h2 class="font-serif text-5xl md:text-6xl">Life in the <span class="text-outline">Hive</span></h2>
+        </div>
+
+        <!-- Masonry-ish Grid -->
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[800px]">
+                <!-- Tall Item -->
+                <div class="md:col-span-1 md:row-span-2 relative overflow-hidden group rounded-lg">
+                    <img src="https://i.ibb.co/TDtnrjwB/Whats-App-Image-2025-09-07-at-21-49-35.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <p class="font-serif text-xl italic text-gold">The Gatherers</p>
+                    </div>
+                </div>
+                <!-- Wide Item -->
+                <div class="md:col-span-2 md:row-span-1 relative overflow-hidden group rounded-lg h-64 md:h-auto">
+                    <img src="https://i.ibb.co/5WP2QQV4/MOCKUPS.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <p class="font-serif text-xl italic text-gold">Pure Product</p>
+                    </div>
+                </div>
+                <!-- Standard Item -->
+                <div class="relative overflow-hidden group rounded-lg h-64 md:h-auto">
+                    <img src="https://i.ibb.co/v4wghYKF/SDFGGDFG.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <p class="font-serif text-xl italic text-gold">Liquid Gold</p>
+                    </div>
+                </div>
+                <!-- Standard Item -->
+                <div class="relative overflow-hidden group rounded-lg h-64 md:h-auto">
+                    <img src="https://i.ibb.co/5WP5N76b/SDGDFSGDF.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Partners Section -->
+    <section id="partners" class="py-20 bg-charcoal border-t border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="font-serif text-2xl md:text-3xl mb-12 text-gray-400">Our Trusted <span class="italic text-gold">Allies</span></h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 items-center opacity-60">
+                <!-- Partner 1 -->
+                <div class="grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110 cursor-pointer magnetic-target">
+                     <!-- Placeholder for Logo -->
+                    <i class="fab fa-aws text-5xl text-white hover:text-gold transition-colors"></i>
+                    <p class="mt-2 text-xs tracking-widest uppercase">Tech Partner</p>
+                </div>
+                <!-- Partner 2 -->
+                <div class="grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110 cursor-pointer magnetic-target">
+                    <i class="fab fa-dhl text-5xl text-white hover:text-gold transition-colors"></i>
+                    <p class="mt-2 text-xs tracking-widest uppercase">Logistics</p>
+                </div>
+                 <!-- Partner 3 -->
+                 <div class="grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110 cursor-pointer magnetic-target">
+                    <i class="fas fa-university text-5xl text-white hover:text-gold transition-colors"></i>
+                    <p class="mt-2 text-xs tracking-widest uppercase">Kenya Edu Fund</p>
+                </div>
+                 <!-- Partner 4 -->
+                 <div class="grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110 cursor-pointer magnetic-target">
+                    <i class="fas fa-hand-holding-heart text-5xl text-white hover:text-gold transition-colors"></i>
+                    <p class="mt-2 text-xs tracking-widest uppercase">Housing Co.</p>
+                </div>
+            </div>
+
+            <div class="mt-16">
+                <a href="#contact" class="inline-block px-8 py-3 border border-white/20 rounded-full hover:bg-gold hover:text-black hover:border-gold transition-all duration-300 magnetic-target text-sm uppercase tracking-widest">Become a Partner</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ / Accordion -->
+    <section class="py-20 bg-zinc-900 border-t border-white/5">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="font-serif text-3xl md:text-4xl mb-12 text-center">Frequently Asked</h2>
+            
+            <div class="space-y-4">
+                <!-- Item 1 -->
+                <div class="accordion-item border-b border-white/10 pb-4 group">
+                    <button class="flex justify-between items-center w-full py-4 text-left magnetic-target">
+                        <span class="text-lg md:text-xl group-hover:text-gold transition-colors">Is the honey raw?</span>
+                        <span class="accordion-icon text-gold text-2xl transition-transform duration-300">+</span>
+                    </button>
+                    <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
+                        <p class="text-gray-400 pb-4 leading-relaxed">Yes. 100% raw, unfiltered, and unpasteurized. It retains all the natural enzymes, pollen, and antioxidants that commercial honey removes.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="accordion-item border-b border-white/10 pb-4 group">
+                    <button class="flex justify-between items-center w-full py-4 text-left magnetic-target">
+                        <span class="text-lg md:text-xl group-hover:text-gold transition-colors">Do you ship internationally?</span>
+                        <span class="accordion-icon text-gold text-2xl transition-transform duration-300">+</span>
+                    </button>
+                    <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
+                        <p class="text-gray-400 pb-4 leading-relaxed">Currently we ship within the USA. We are working on logistics to ship to Kenya and the UK by late 2025.</p>
+                    </div>
+                </div>
+
+                 <!-- Item 3 -->
+                 <div class="accordion-item border-b border-white/10 pb-4 group">
+                    <button class="flex justify-between items-center w-full py-4 text-left magnetic-target">
+                        <span class="text-lg md:text-xl group-hover:text-gold transition-colors">How exactly are profits used?</span>
+                        <span class="accordion-icon text-gold text-2xl transition-transform duration-300">+</span>
+                    </button>
+                    <div class="accordion-content h-0 overflow-hidden transition-all duration-500">
+                        <p class="text-gray-400 pb-4 leading-relaxed">Profits fund the "Nyuki Transition Program," which covers rent for transitional housing, weekly therapy sessions, and enrollment in local vocational schools for aged-out youth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-black py-20 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <svg width="100%" height="100%">
+                <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                    <path d="M25 0 L50 12.5 L50 37.5 L25 50 L0 37.5 L0 12.5 Z" fill="none" stroke="#E1C16E" stroke-width="1"/>
+                </pattern>
+                <rect width="100%" height="100%" fill="url(#hexagons)" />
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <i class="fas fa-hexagon text-gold text-4xl mb-6 inline-block"></i>
+            <h2 class="font-serif text-5xl md:text-7xl mb-8">Join the Colony</h2>
+            <p class="text-gray-400 max-w-xl mx-auto mb-10">Sign up for harvest updates and stories from the field.</p>
+
+            <form class="max-w-md mx-auto relative mb-20 group">
+                <input type="email" placeholder="Email Address" class="w-full bg-transparent border-b border-gray-700 py-4 text-white focus:outline-none focus:border-gold transition-colors peer">
+                <button type="submit" class="absolute right-0 top-4 text-gray-500 hover:text-gold transition-colors magnetic-target">
+                    <i class="fas fa-arrow-right text-xl"></i>
+                </button>
+            </form>
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600 border-t border-gray-900 pt-8">
+                <p>&copy; 2025 Nyuki Asali. All Rights Reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-gold transition-colors magnetic-target"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="hover:text-gold transition-colors magnetic-target"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="hover:text-gold transition-colors magnetic-target"><i class="fab fa-linkedin text-xl"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        // Loader
+        // 1. Loader Animation
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }, 1500);
-        });
-
-        // Custom Cursor
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // Scroll Progress
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById('scrollProgress').style.width = (winScroll / height) * 100 + '%';
-        });
-
-        // Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Reveal on Scroll
-        const reveals = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    revealObserver.unobserve(entry.target);
+            gsap.to(loader, {
+                opacity: 0,
+                duration: 1,
+                delay: 0.5,
+                onComplete: () => {
+                    loader.style.display = 'none';
+                    initHeroAnimations();
                 }
             });
-        }, { threshold: 0.15 });
-        reveals.forEach(reveal => revealObserver.observe(reveal));
-
-        // Smooth Scroll & Mobile Menu Hide
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.getElementById('mobile-menu').classList.add('hidden');
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
         });
 
-        // Parallax Effect on Cards
-        document.querySelectorAll('.parallax-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const rotateX = (y - rect.height / 2) / 20;
-                const rotateY = (rect.width / 2 - x) / 20;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-            });
-        });
+        // 2. Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
         
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows instantly
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Outline follows with slight delay (animation)
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Magnetic Effect
+        const targets = document.querySelectorAll('.magnetic-target');
+        targets.forEach(target => {
+            target.addEventListener('mouseenter', () => {
+                document.body.classList.add('hovering');
+            });
+            target.addEventListener('mouseleave', () => {
+                document.body.classList.remove('hovering');
+            });
+        });
+
+        // 3. GSAP Animations Setup
+        gsap.registerPlugin(ScrollTrigger);
+
+        function initHeroAnimations() {
+            const tl = gsap.timeline();
+
+            // Split text reveal
+            tl.to('.hero-line span', {
+                y: 0,
+                duration: 1.5,
+                stagger: 0.2,
+                ease: "power4.out"
+            })
+            .to('.hero-subtitle', {
+                opacity: 1,
+                y: 0,
+                duration: 1
+            }, "-=1")
+            .to('.hero-desc', {
+                opacity: 1,
+                duration: 1
+            }, "-=0.5")
+            .to('.hero-btn', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "back.out(1.7)"
+            }, "-=0.5");
+        }
+
+        // Parallax Image
+        gsap.to('.parallax-img', {
+            scrollTrigger: {
+                trigger: '#story',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: 50,
+            scale: 1,
+            ease: 'none'
+        });
+
+        // Text Reveal in Story
+        gsap.from('.reveal-text > *', {
+            scrollTrigger: {
+                trigger: '.reveal-text',
+                start: 'top 80%',
+            },
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power3.out"
+        });
+
+        // Number Counters
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            gsap.to(counter, {
+                scrollTrigger: {
+                    trigger: counter,
+                    start: 'top 85%',
+                    once: true
+                },
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 },
+                ease: "power1.out"
+            });
+        });
+
+        // Horizontal Scroll for Mission Section (Desktop only)
+        if (window.innerWidth > 768) {
+            const section = document.getElementById('mission');
+            const container = document.querySelector('.scroll-container');
+            
+            gsap.to(container, {
+                x: () => -(container.scrollWidth - window.innerWidth),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    pin: true,
+                    scrub: 1,
+                    end: () => "+=" + container.scrollWidth
+                }
             });
         }
-        
+
         // FAQ Accordion
-        const faqAccordion = document.getElementById('faq-accordion');
-        if(faqAccordion) {
-            faqAccordion.addEventListener('click', (e) => {
-                const question = e.target.closest('.faq-question');
-                if (question) {
-                    const answer = question.nextElementSibling;
-                    const icon = question.querySelector('.icon');
-                    const isOpen = answer.style.maxHeight;
-                    
-                    document.querySelectorAll('.faq-answer').forEach(ans => ans.style.maxHeight = null);
-                    document.querySelectorAll('.faq-question .icon').forEach(icn => icn.style.transform = 'rotate(0deg)');
-                    
-                    if (!isOpen) {
-                        answer.style.maxHeight = answer.scrollHeight + "px";
-                        icon.style.transform = 'rotate(180deg)';
-                    }
+        const accordions = document.querySelectorAll('.accordion-item');
+        accordions.forEach(item => {
+            const btn = item.querySelector('button');
+            const content = item.querySelector('.accordion-content');
+            const icon = item.querySelector('.accordion-icon');
+
+            btn.addEventListener('click', () => {
+                const isOpen = content.style.height && content.style.height !== '0px';
+                
+                // Close all
+                accordions.forEach(a => {
+                    a.querySelector('.accordion-content').style.height = 0;
+                    a.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                });
+
+                if (!isOpen) {
+                    content.style.height = content.scrollHeight + 'px';
+                    icon.style.transform = 'rotate(45deg)';
                 }
             });
-        }
-        
-        // Toast Notification
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.textContent = message;
-            toast.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 translate-y-20 bg-amber-500 text-zinc-900 px-6 py-3 rounded-full font-semibold z-[10000] transition-transform duration-300';
-            document.body.appendChild(toast);
-            setTimeout(() => toast.style.transform = 'translateX(-50%) translateY(0)', 100);
-            setTimeout(() => {
-                toast.style.transform = 'translateX(-50%) translateY(20rem)';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-        
-        /* REMOVED: Footer form submit listener */
-        // document.querySelector('footer form').addEventListener('submit', (e) => {
-        //     e.preventDefault();
-        //     const input = e.target.querySelector('input');
-        //     if (input.value && input.val.includes('@')) {
-        //         showToast('Welcome to the hive! 🐝');
-        //         input.value = '';
-        //     } else {
-        //         showToast('Please enter a valid email.');
-        //     }
-        // });
+        });
 
-        // Animate title words
-        const title = document.querySelector('.animate-title');
-        if (title) {
-            const textContent = title.innerHTML;
-            const words = textContent.split(/(<span.*?>.*?<\/span>|\s+)/).filter(w => w.trim().length > 0);
-            title.innerHTML = '';
-            let delay = 0;
-            words.forEach((word) => {
-                const wordSpan = document.createElement('span');
-                wordSpan.innerHTML = word + '&nbsp;';
-                wordSpan.style.transitionDelay = `${delay}s`;
-                title.appendChild(wordSpan);
-                delay += 0.1;
+        // Mobile Menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        let menuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if(menuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                menuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                mobileMenu.classList.add('translate-x-full');
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
+        });
 
-            setTimeout(() => {
-                title.querySelectorAll('span').forEach(span => {
-                    span.style.opacity = '1';
-                    span.style.transform = 'translateY(0)';
-                });
-            }, 2000); // Delay matches loader
+        // 4. Canvas Particle System (Golden Dust)
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.directionX = (Math.random() * 0.4) - 0.2;
+                this.directionY = (Math.random() * 0.4) - 0.2;
+                this.size = Math.random() * 2;
+                this.color = '#E1C16E';
+                this.opacity = Math.random() * 0.5;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = `rgba(225, 193, 110, ${this.opacity})`;
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                
+                // Mouse interaction
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                
+                if (distance < 100) {
+                    this.x -= dx/20;
+                    this.y -= dy/20;
+                }
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
         }
+
+        let mouse = { x: null, y: null };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 5) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                particlesArray.push(new Particle(x, y));
+            }
+        }
+
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            initParticles();
+        });
+
+        initParticles();
+        animateParticles();
 
     </script>
 </body>
