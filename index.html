@@ -122,9 +122,13 @@
 
         canvas { display: block; position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
         
-        .gallery-img {
+        .gallery-img, .merch-img {
             will-change: transform;
             transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .merch-card:hover .merch-img {
+            transform: scale(1.05);
         }
 
         #navbar.scrolled {
@@ -161,6 +165,7 @@
             <a href="#mission" class="hover:text-gold transition-colors magnetic-target">Mission</a>
             <a href="#lessons" class="hover:text-gold transition-colors magnetic-target">Learning</a>
             <a href="#gallery" class="hover:text-gold transition-colors magnetic-target">Gallery</a>
+            <a href="#merch" class="hover:text-gold transition-colors magnetic-target">Merch</a>
             <a href="https://whatsapp.com/channel/0029VbCK8DXGpLHV5q9C0K3g" target="_blank" class="px-6 py-2 bg-gold text-black rounded-full hover:bg-white transition-all duration-300 magnetic-target flex items-center gap-2">
                 <i class="fab fa-whatsapp"></i> Join Channel
             </a>
@@ -176,6 +181,7 @@
             <a href="#mission" class="menu-link hover:text-gold italic">Mission</a>
             <a href="#lessons" class="menu-link hover:text-gold italic">Learning</a>
             <a href="#gallery" class="menu-link hover:text-gold italic">Gallery</a>
+            <a href="#merch" class="menu-link hover:text-gold italic">Merch</a>
             <a href="https://whatsapp.com/channel/0029VbCK8DXGpLHV5q9C0K3g" target="_blank" class="menu-link text-gold"><i class="fab fa-whatsapp"></i> WhatsApp</a>
         </div>
     </div>
@@ -304,8 +310,62 @@
         </div>
     </section>
 
+    <!-- SUPPORT BY GETTING MERCH (DARK) -->
+    <section id="merch" class="py-32 bg-zinc-950 border-y border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mb-16">
+                <span class="text-gold text-xs tracking-[0.4em] uppercase mb-4 block font-bold">Wear the Mission</span>
+                <h2 class="font-serif text-5xl md:text-7xl mb-6">Support the <span class="italic text-gold">Hive</span></h2>
+                <p class="text-gray-400 text-lg">Every item of apparel funds community grants and mentorship in Kenya. Wear your impact.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+                <!-- Merch Item 1 -->
+                <div class="merch-card group cursor-pointer">
+                    <div class="relative aspect-square overflow-hidden rounded-3xl bg-zinc-900 border border-white/5 mb-6">
+                        <img src="https://i.ibb.co/CKwmFzdz/beige-bag.png" alt="Beige Nyuki Asali Tote Bag" class="merch-img w-full h-full object-cover p-10" loading="lazy">
+                    </div>
+                    <h3 class="font-serif text-xl mb-1">Canvas Tote — Beige</h3>
+                    <p class="text-gold font-bold">$28.00</p>
+                </div>
+                <!-- Merch Item 2 -->
+                <div class="merch-card group cursor-pointer">
+                    <div class="relative aspect-square overflow-hidden rounded-3xl bg-zinc-900 border border-white/5 mb-6">
+                        <img src="https://i.ibb.co/Q3MtHCMH/black-bag.png" alt="Black Nyuki Asali Tote Bag" class="merch-img w-full h-full object-cover p-10" loading="lazy">
+                    </div>
+                    <h3 class="font-serif text-xl mb-1">Midnight Tote — Black</h3>
+                    <p class="text-gold font-bold">$28.00</p>
+                </div>
+                <!-- Merch Item 3 -->
+                <div class="merch-card group cursor-pointer">
+                    <div class="relative aspect-square overflow-hidden rounded-3xl bg-zinc-900 border border-white/5 mb-6">
+                        <img src="https://i.ibb.co/8DwN176F/black-tshirt.png" alt="Black Nyuki Asali T-shirt" class="merch-img w-full h-full object-cover p-10" loading="lazy">
+                    </div>
+                    <h3 class="font-serif text-xl mb-1">Colony Tee — Black</h3>
+                    <p class="text-gold font-bold">$35.00</p>
+                </div>
+                <!-- Merch Item 4 -->
+                <div class="merch-card group cursor-pointer">
+                    <div class="relative aspect-square overflow-hidden rounded-3xl bg-zinc-900 border border-white/5 mb-6">
+                        <img src="https://i.ibb.co/5gMjGZ7m/white-bag.png" alt="White Nyuki Asali Tote Bag" class="merch-img w-full h-full object-cover p-10" loading="lazy">
+                    </div>
+                    <h3 class="font-serif text-xl mb-1">Cloud Tote — White</h3>
+                    <p class="text-gold font-bold">$28.00</p>
+                </div>
+                <!-- Merch Item 5 -->
+                <div class="merch-card group cursor-pointer">
+                    <div class="relative aspect-square overflow-hidden rounded-3xl bg-zinc-900 border border-white/5 mb-6">
+                        <img src="https://i.ibb.co/tMBQRGYc/white-tshirt.png" alt="White Nyuki Asali T-shirt" class="merch-img w-full h-full object-cover p-10" loading="lazy">
+                    </div>
+                    <h3 class="font-serif text-xl mb-1">Colony Tee — White</h3>
+                    <p class="text-gold font-bold">$35.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FREQUENTLY ASKED SECTION (DARK) -->
-    <section id="faq" class="py-32 bg-zinc-900 border-t border-white/5">
+    <section id="faq" class="py-32 bg-zinc-900">
         <div class="container mx-auto px-6 max-w-3xl">
             <h2 class="font-serif text-4xl md:text-5xl mb-16 text-center">Frequently Asked</h2>
             
@@ -399,7 +459,7 @@
             }
         });
 
-        document.querySelectorAll('.magnetic-target, a, button').forEach(el => {
+        document.querySelectorAll('.magnetic-target, a, button, .merch-card').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
