@@ -86,8 +86,13 @@
         }
 
         .maasai-pattern {
-            background-color: #0F0F0F;
             background-image: radial-gradient(#2a2a2a 15%, transparent 16%), radial-gradient(#2a2a2a 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        .maasai-pattern-light {
+            background-image: radial-gradient(#d1d1d1 15%, transparent 16%), radial-gradient(#d1d1d1 15%, transparent 16%);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
         }
@@ -119,7 +124,7 @@
         
         .gallery-img {
             will-change: transform;
-            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), filter 0.7s ease;
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         #navbar.scrolled {
@@ -175,7 +180,7 @@
         </div>
     </div>
 
-    <!-- SIMPLE HERO SECTION -->
+    <!-- HERO SECTION (DARK) -->
     <header class="relative min-h-screen flex items-center justify-center px-6 text-center">
         <div class="absolute inset-0 bg-gradient-to-b from-charcoal/0 to-charcoal z-0"></div>
         <div class="relative z-10 max-w-5xl">
@@ -195,30 +200,30 @@
         </div>
     </header>
 
-    <!-- Mission Section -->
-    <section id="mission" class="py-32 relative">
-        <div class="maasai-pattern absolute top-0 right-0 w-full md:w-1/2 h-full opacity-10 pointer-events-none"></div>
+    <!-- MISSION SECTION (LIGHT - MIXED) -->
+    <section id="mission" class="py-32 relative bg-paper text-charcoal">
+        <div class="maasai-pattern-light absolute top-0 right-0 w-full md:w-1/2 h-full opacity-30 pointer-events-none"></div>
         <div class="container mx-auto px-6 relative z-10">
             <div class="grid lg:grid-cols-2 gap-20 items-center">
                 <div class="relative group">
-                    <img src="https://i.ibb.co/zV6dQMSQ/Whats-App-Image-2025-09-07-at-21-49-36.jpg" alt="Beekeeping demonstration in Kenya" class="rounded-2xl grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl" loading="lazy">
+                    <img src="https://i.ibb.co/zV6dQMSQ/Whats-App-Image-2025-09-07-at-21-49-36.jpg" alt="Beekeeping demonstration in Kenya" class="rounded-2xl transition-all duration-700 shadow-2xl scale-100 group-hover:scale-[1.02]" loading="lazy">
                 </div>
                 <div class="space-y-8">
-                    <h2 class="font-serif text-5xl md:text-6xl">A Bridge of <span class="italic text-gold">Hope</span></h2>
-                    <p class="text-gray-400 text-lg font-light leading-relaxed">
+                    <h2 class="font-serif text-5xl md:text-6xl text-charcoal">A Bridge of <span class="italic text-gold-dark">Hope</span></h2>
+                    <p class="text-gray-700 text-lg font-light leading-relaxed">
                         Our honey is harvested in Oklahoma, and every purchase supports youth training programs in Kenya. We use sustainable beekeeping to connect these two worlds, creating economic opportunities for youth transitioning out of orphanages.
                     </p>
-                    <p class="text-gray-400 text-lg font-light leading-relaxed">
+                    <p class="text-gray-700 text-lg font-light leading-relaxed">
                         Beekeeping creates sustainable income, teaches responsibility, and protects biodiversity—empowering a generation to build their own future.
                     </p>
                     <div class="grid grid-cols-2 gap-8">
                         <div>
-                            <h4 class="text-4xl font-serif text-gold counter" data-target="100">0</h4>
-                            <p class="text-[10px] uppercase tracking-[0.4em] text-gray-500 mt-2">Profits to Purpose</p>
+                            <h4 class="text-4xl font-serif text-gold-dark counter" data-target="100">0</h4>
+                            <p class="text-[10px] uppercase tracking-[0.4em] text-gray-500 mt-2 font-bold">Profits to Purpose</p>
                         </div>
                         <div>
-                            <h4 class="text-4xl font-serif text-gold counter" data-target="150">0</h4>
-                            <p class="text-[10px] uppercase tracking-[0.4em] text-gray-500 mt-2">Hives Sustained</p>
+                            <h4 class="text-4xl font-serif text-gold-dark counter" data-target="150">0</h4>
+                            <p class="text-[10px] uppercase tracking-[0.4em] text-gray-500 mt-2 font-bold">Hives Sustained</p>
                         </div>
                     </div>
                 </div>
@@ -226,7 +231,7 @@
         </div>
     </section>
 
-    <!-- Learning Hive -->
+    <!-- LEARNING HIVE (DARK) -->
     <section id="lessons" class="py-32 bg-zinc-900 border-y border-white/5">
         <div class="container mx-auto px-6 text-center">
             <div class="max-w-3xl mx-auto mb-20">
@@ -253,59 +258,58 @@
         </div>
     </section>
 
-    <!-- UNIFIED GALLERY -->
-    <section id="gallery" class="py-32 bg-zinc-950">
+    <!-- UNIFIED GALLERY (LIGHT - MIXED) -->
+    <section id="gallery" class="py-32 bg-paper text-charcoal">
         <div class="container mx-auto px-6">
             <div class="mb-16 text-center">
-                <span class="text-gold text-xs tracking-[0.4em] uppercase mb-4 block font-bold">The Harvest & Community</span>
-                <h2 class="font-serif text-5xl md:text-7xl">Life in the <span class="italic text-gold">Hive</span></h2>
-                <p class="text-gray-500 max-w-xl mx-auto mt-6 text-lg">A visual journey through our Oklahoma harvests and the Kenyan communities we serve.</p>
+                <span class="text-gold-dark text-xs tracking-[0.4em] uppercase mb-4 block font-bold">The Harvest & Community</span>
+                <h2 class="font-serif text-5xl md:text-7xl text-charcoal">Life in the <span class="italic text-gold-dark">Hive</span></h2>
+                <p class="text-gray-600 max-w-xl mx-auto mt-6 text-lg">A visual journey through our Oklahoma harvests and the Kenyan communities we serve.</p>
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="space-y-4">
-                    <div class="overflow-hidden rounded-xl bg-zinc-900 border border-white/5">
-                        <img src="https://i.ibb.co/v4wghYKF/SDFGGDFG.png" alt="Nyuki Asali Wildflower Honey" class="gallery-img w-full grayscale hover:grayscale-0 p-4 transition-all duration-700" loading="lazy">
+                    <div class="overflow-hidden rounded-xl bg-white shadow-sm border border-charcoal/5">
+                        <img src="https://i.ibb.co/v4wghYKF/SDFGGDFG.png" alt="Nyuki Asali Wildflower Honey" class="gallery-img w-full p-4 transition-all duration-700" loading="lazy">
                     </div>
-                    <img src="https://i.ibb.co/PGx6dDQM/Whats-App-Image-2025-09-07-at-21-48-33.jpg" alt="Community harvest" class="gallery-img rounded-xl w-full h-64 object-cover grayscale hover:grayscale-0" loading="lazy">
-                    <img src="https://i.ibb.co/Qjrf6qz2/Whats-App-Image-2025-09-07-at-21-48-33-1.jpg" alt="Bee hives in Kenya" class="gallery-img rounded-xl w-full h-80 object-cover grayscale hover:grayscale-0" loading="lazy">
-                    <img src="https://i.ibb.co/SXrzXVHY/fdsdfdsfsf.png" alt="Harvested honey jars" class="gallery-img rounded-xl w-full grayscale hover:grayscale-0 p-4" loading="lazy">
+                    <img src="https://i.ibb.co/PGx6dDQM/Whats-App-Image-2025-09-07-at-21-48-33.jpg" alt="Community harvest" class="gallery-img rounded-xl w-full h-64 object-cover shadow-sm" loading="lazy">
+                    <img src="https://i.ibb.co/Qjrf6qz2/Whats-App-Image-2025-09-07-at-21-48-33-1.jpg" alt="Bee hives in Kenya" class="gallery-img rounded-xl w-full h-80 object-cover shadow-sm" loading="lazy">
+                    <img src="https://i.ibb.co/SXrzXVHY/fdsdfdsfsf.png" alt="Harvested honey jars" class="gallery-img rounded-xl w-full p-4 shadow-sm" loading="lazy">
                 </div>
                 <div class="space-y-4">
-                    <img src="https://i.ibb.co/G4qHN1G5/Whats-App-Image-2025-09-07-at-21-48-34.jpg" alt="Youth training" class="gallery-img rounded-xl w-full h-80 object-cover grayscale hover:grayscale-0" loading="lazy">
-                    <div class="overflow-hidden rounded-xl bg-zinc-900 border border-white/5">
-                        <img src="https://i.ibb.co/5WP5N76b/SDGDFSGDF.png" alt="Beeswax candle" class="gallery-img w-full grayscale hover:grayscale-0 p-4" loading="lazy">
+                    <img src="https://i.ibb.co/G4qHN1G5/Whats-App-Image-2025-09-07-at-21-48-34.jpg" alt="Youth training" class="gallery-img rounded-xl w-full h-80 object-cover shadow-sm" loading="lazy">
+                    <div class="overflow-hidden rounded-xl bg-white shadow-sm border border-charcoal/5">
+                        <img src="https://i.ibb.co/5WP5N76b/SDGDFSGDF.png" alt="Beeswax candle" class="gallery-img w-full p-4" loading="lazy">
                     </div>
-                    <img src="https://i.ibb.co/Fk6hZ5vR/Whats-App-Image-2025-09-07-at-21-48-36.jpg" alt="Beekeeper at work" class="gallery-img rounded-xl w-full h-64 object-cover grayscale hover:grayscale-0" loading="lazy">
-                    <img src="https://i.ibb.co/mCkHT84d/Whats-App-Image-2025-09-07-at-21-48-37.jpg" alt="Honey farm landscape" class="gallery-img rounded-xl w-full h-80 object-cover grayscale hover:grayscale-0" loading="lazy">
+                    <img src="https://i.ibb.co/Fk6hZ5vR/Whats-App-Image-2025-09-07-at-21-48-36.jpg" alt="Beekeeper at work" class="gallery-img rounded-xl w-full h-64 object-cover shadow-sm" loading="lazy">
+                    <img src="https://i.ibb.co/mCkHT84d/Whats-App-Image-2025-09-07-at-21-48-37.jpg" alt="Honey farm landscape" class="gallery-img rounded-xl w-full h-80 object-cover shadow-sm" loading="lazy">
                 </div>
                 <div class="space-y-4">
-                    <img src="https://i.ibb.co/JwfGLx74/Whats-App-Image-2025-09-07-at-21-48-39.jpg" alt="Bottling process" class="gallery-img rounded-xl w-full h-64 object-cover grayscale hover:grayscale-0" loading="lazy">
-                    <img src="https://i.ibb.co/mVGJn2Y2/Whats-App-Image-2025-09-07-at-21-48-39-1.jpg" alt="Branding on site" class="gallery-img rounded-xl w-full h-80 object-cover grayscale hover:grayscale-0" loading="lazy">
-                    <div class="overflow-hidden rounded-xl bg-zinc-900 border border-white/5">
-                        <img src="https://i.ibb.co/5WP2QQV4/MOCKUPS.png" alt="Heritage gift set" class="gallery-img w-full grayscale hover:grayscale-0 p-4" loading="lazy">
+                    <img src="https://i.ibb.co/JwfGLx74/Whats-App-Image-2025-09-07-at-21-48-39.jpg" alt="Bottling process" class="gallery-img rounded-xl w-full h-64 object-cover shadow-sm" loading="lazy">
+                    <img src="https://i.ibb.co/mVGJn2Y2/Whats-App-Image-2025-09-07-at-21-48-39-1.jpg" alt="Branding on site" class="gallery-img rounded-xl w-full h-80 object-cover shadow-sm" loading="lazy">
+                    <div class="overflow-hidden rounded-xl bg-white shadow-sm border border-charcoal/5">
+                        <img src="https://i.ibb.co/5WP2QQV4/MOCKUPS.png" alt="Heritage gift set" class="gallery-img w-full p-4" loading="lazy">
                     </div>
-                    <img src="https://i.ibb.co/VZj6k6t/Whats-App-Image-2025-09-07-at-21-49-34.jpg" alt="Community smiles" class="gallery-img rounded-xl w-full h-64 object-cover grayscale hover:grayscale-0" loading="lazy">
+                    <img src="https://i.ibb.co/VZj6k6t/Whats-App-Image-2025-09-07-at-21-49-34.jpg" alt="Community smiles" class="gallery-img rounded-xl w-full h-64 object-cover shadow-sm" loading="lazy">
                 </div>
                 <div class="space-y-4">
-                    <img src="https://i.ibb.co/GQFM9HYV/Whats-App-Image-2025-09-07-at-21-49-34-1.jpg" alt="Hive inspection" class="gallery-img rounded-xl w-full h-80 object-cover grayscale hover:grayscale-0" loading="lazy">
-                    <div class="overflow-hidden rounded-xl bg-zinc-900 border border-white/5">
-                        <img src="https://i.ibb.co/YBQ86KY9/cover.png" alt="Founder's reserve" class="gallery-img w-full grayscale hover:grayscale-0 p-4" loading="lazy">
+                    <img src="https://i.ibb.co/GQFM9HYV/Whats-App-Image-2025-09-07-at-21-49-34-1.jpg" alt="Hive inspection" class="gallery-img rounded-xl w-full h-80 object-cover shadow-sm" loading="lazy">
+                    <div class="overflow-hidden rounded-xl bg-white shadow-sm border border-charcoal/5">
+                        <img src="https://i.ibb.co/YBQ86KY9/cover.png" alt="Founder's reserve" class="gallery-img w-full p-4" loading="lazy">
                     </div>
-                    <img src="https://i.ibb.co/TDtnrjwB/Whats-App-Image-2025-09-07-at-21-49-35.jpg" alt="Education participants" class="gallery-img rounded-xl w-full h-64 object-cover grayscale hover:grayscale-0" loading="lazy">
-                    <img src="https://i.ibb.co/GfGynd1N/Whats-App-Image-2025-09-07-at-21-49-35-1.jpg" alt="Sunset over farm" class="gallery-img rounded-xl w-full h-80 object-cover grayscale hover:grayscale-0" loading="lazy">
+                    <img src="https://i.ibb.co/TDtnrjwB/Whats-App-Image-2025-09-07-at-21-49-35.jpg" alt="Education participants" class="gallery-img rounded-xl w-full h-64 object-cover shadow-sm" loading="lazy">
+                    <img src="https://i.ibb.co/GfGynd1N/Whats-App-Image-2025-09-07-at-21-49-35-1.jpg" alt="Sunset over farm" class="gallery-img rounded-xl w-full h-80 object-cover shadow-sm" loading="lazy">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FREQUENTLY ASKED SECTION -->
+    <!-- FREQUENTLY ASKED SECTION (DARK) -->
     <section id="faq" class="py-32 bg-zinc-900 border-t border-white/5">
         <div class="container mx-auto px-6 max-w-3xl">
             <h2 class="font-serif text-4xl md:text-5xl mb-16 text-center">Frequently Asked</h2>
             
             <div class="space-y-4">
-                <!-- Item 1 -->
                 <div class="accordion-item border-b border-white/10 pb-4 group">
                     <button class="flex justify-between items-center w-full py-6 text-left magnetic-target" aria-expanded="false">
                         <span class="text-xl md:text-2xl group-hover:text-gold transition-colors">Is the honey raw?</span>
@@ -318,7 +322,6 @@
                     </div>
                 </div>
 
-                <!-- Item 2 -->
                 <div class="accordion-item border-b border-white/10 pb-4 group">
                     <button class="flex justify-between items-center w-full py-6 text-left magnetic-target" aria-expanded="false">
                         <span class="text-xl md:text-2xl group-hover:text-gold transition-colors">Do you ship internationally?</span>
@@ -331,7 +334,6 @@
                     </div>
                 </div>
 
-                <!-- Item 3 -->
                 <div class="accordion-item border-b border-white/10 pb-4 group">
                     <button class="flex justify-between items-center w-full py-6 text-left magnetic-target" aria-expanded="false">
                         <span class="text-xl md:text-2xl group-hover:text-gold transition-colors">How exactly are profits used?</span>
@@ -347,7 +349,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- FOOTER (DARK) -->
     <footer id="contact" class="bg-black py-32 relative overflow-hidden">
         <div class="container mx-auto px-6 text-center relative z-10">
             <h2 class="font-serif text-5xl md:text-8xl mb-8">Join the <span class="italic text-gold">Colony</span></h2>
@@ -365,7 +367,7 @@
         </div>
     </footer>
 
-    <!-- GSAP for High-End Animations - Performance: Move to end for better loading -->
+    <!-- GSAP for High-End Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
@@ -444,7 +446,7 @@
                     if (!isOpen) {
                         btn.setAttribute('aria-expanded', 'true');
                         content.style.height = content.scrollHeight + 'px';
-                        icon.style.transform = 'rotate(45deg)'; // "+" becomes "x"
+                        icon.style.transform = 'rotate(45deg)'; 
                     }
                 });
             });
